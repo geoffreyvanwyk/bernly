@@ -2,10 +2,15 @@
 	require_once 'database_connection.php';
 	require_once 'configuration.php';
 
-	$url_parts = explode('/', $_SERVER['REQUEST_URI']);
-	if (!empty($url_parts[3]) && $url_parts[3][0] !== '?') {
+	if (APP_PATH !== '/') {
+		$app_path_components = explode('/', APP_PATH);
+		$request_uri_components = explode('/', $_SERVER['REQUEST_URI']);
+		$short_url_path = implode(array_diff($request_uri_components, $app_path_components));
+	}
+
+	if (!empty($short_url_path) && $short_url_path[0] !== '?') {
 		try {
-			foreach ($db->query("SELECT long_url FROM URLs WHERE short_url = " . $db->quote($url_parts[3][0])) as $row) {
+			foreach ($db->query("SELECT long_url FROM URLs WHERE short_url = " . $db->quote($short_url_path)) as $row) {
 				$long_url = $row['long_url'];
 			}
 			http_redirect($long_url);

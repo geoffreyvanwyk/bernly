@@ -9,10 +9,7 @@
 			if (empty($new_id)) {
 				$new_id = 1;
 			}
-			$url_components = parse_url($_GET['long_url']);
-			$scheme = $url_components['scheme'] . '://';
-			$host = $url_components['host'] . '/';
-			$short_url = $scheme . $host . base_convert($new_id, 10, 36);
+			$short_url = 'bernly.com/' . base_convert($new_id, 10, 36);
 			$db->exec("INSERT INTO URLs(short_url, long_url) VALUES('$short_url', '$_GET[long_url]')");
 		} catch (PDOException $e) {
 			echo $e->getMessage() . '<br>';

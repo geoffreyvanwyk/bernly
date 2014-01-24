@@ -6,6 +6,9 @@
 		$app_path_components = explode('/', APP_PATH);
 		$request_uri_components = explode('/', $_SERVER['REQUEST_URI']);
 		$short_url_path = implode(array_diff($request_uri_components, $app_path_components));
+	} else {
+		$short_url_path = explode('/', $_SERVER['REQUEST_URI']);
+		$short_url_path = $short_url_path[1];
 	}
 
 	if (!empty($short_url_path) && $short_url_path[0] !== '?') {

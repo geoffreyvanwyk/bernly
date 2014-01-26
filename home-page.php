@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>URL Shorterner | bernly.com</title>
+		<title>Link Shorterner | bernly.com</title>
 		<link href="static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link href="static/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-		<style>
-			body {
-				padding-top: 0px; /* 40px to make the container go all the way to the bottom of the topbar */
-			}
-		</style>
+		<!-- <link href="static/bower_components/bootstrap/dist/css/bootstrap-amelia-theme.min.css" rel="stylesheet"> -->
 	</head>
 	<body>
 		<div class="jumbotron">
@@ -38,9 +33,10 @@
 		</div>
 
 	<?php if (isset($short_url)): ?>
-		<br><br>
-		<div class="jumbotron">
-			<div class="container">
+		<div class="container">
+			<h2 class="text-center">Result</h2>
+			<div class="page-header">
+				<button class="btn btn-primary pull-right">Copy</button>
 				<h3><?=$short_url?></h3>
 			</div>
 		</div>

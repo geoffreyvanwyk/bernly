@@ -22,7 +22,7 @@
 		} catch (Exception $e) {
 			echo $e->getMessage() . '<br>';
 		}
-	} else if (!empty($_GET['long_url'])) {
+	} else if (!empty($_GET['submit'])) {
 		try {
 			foreach ($db->query('SELECT id FROM URLs') as $row) {
 				$new_id = $row['id'] + 1;
@@ -30,14 +30,18 @@
 			if (empty($new_id)) {
 				$new_id = 1;
 			}
-			$short_url_path = base_convert($new_id, 10, 36);
-			$short_url = APP_HOST_NAME . '/' . $short_url_path;
+			$short_url_path = base_convert($new_id, 10, 36); // Only this is stored in the database.
+			$short_url = APP_HOST_NAME . '/' . $short_url_path; // This is displayed as the result.
 			$db->exec("INSERT INTO URLs(short_url, long_url) VALUES('$short_url_path', '$_GET[long_url]')");
+			http_redirect(APP_PATH.'?result='.$short_url);
 		} catch (PDOException $e) {
 			echo $e->getMessage() . '<br>';
 		} catch (Exception $e) {
 			echo $e->getMessage() . '<br>';
 		}
+	} else if (!empty($_GET['result'])) {
+		$short_url = $_GET['result'];
+		require_once "home-page.php";
+	} else {
+		require_once "home-page.php";
 	}
-
-	require_once "home-page.php";

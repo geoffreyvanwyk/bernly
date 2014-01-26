@@ -1,5 +1,5 @@
 <?php
-	require_once 'database_connection.php';
+	require_once 'database-connection.php';
 	require_once 'configuration.php';
 
 	if (APP_PATH !== '/') {
@@ -40,4 +40,4 @@
 		}
 	}
 
-	require_once "home_page.php";
+	require_once "home-page.php";

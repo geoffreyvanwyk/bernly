@@ -3,7 +3,6 @@
 	<head>
 		<title>Link Shorterner | bernly.com</title>
 		<link href="static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-		<!-- <link href="static/bower_components/bootstrap/dist/css/bootstrap-amelia-theme.min.css" rel="stylesheet"> -->
 	</head>
 	<body>
 		<div class="jumbotron">

@@ -33,10 +33,8 @@
 
 	<?php if (isset($short_url)): ?>
 		<div class="container">
-			<h2 class="text-center">Result</h2>
 			<div class="page-header">
-				<button class="btn btn-primary pull-right">Copy</button>
-				<h3><?=$short_url?></h3>
+				<h3>Result<span class="pull-right"><strong><?=$short_url?></strong></span></h3>
 			</div>
 		</div>
 	<?php endif; ?>

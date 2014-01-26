@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<title>URL Shorterner | bernly.com</title>
-		<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="static/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 		<style>
 			body {
 				padding-top: 0px; /* 40px to make the container go all the way to the bottom of the topbar */
@@ -14,8 +14,8 @@
 		<div class="jumbotron">
 			<div class="container">
 				<div class="page-header">
-					<a href="/">
-						<img src="./bernly-logo.png" width="200" height="100" class="center-block">
+					<a href="<?=APP_PATH?>">
+						<img src="static/img/bernly-logo.png" width="200" height="100" class="center-block">
 					</a>
 					<p class="lead text-center">Cut your links down to size.</p>
 				</div>
@@ -41,7 +41,7 @@
 		<br><br>
 		<div class="jumbotron">
 			<div class="container">
-				<h3><?php echo $short_url; ?></h3>
+				<h3><?=$short_url?></h3>
 			</div>
 		</div>
 	<?php endif; ?>

@@ -2,8 +2,14 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Link Shorterner | bernly.com</title>
+		<meta name="application" content="bernly">
+		<meta name="author" content="Bernadine Computing">
+		<meta name="description" content="A link (URL, web address) shortener.">
+		<meta name="keywords" content="link, URL, web address, address, shorter, shorten, link shortener">
+
 		<link href="static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	
+		<title>Link Shorterner | bernly.com</title>
 	</head>
 	<body>
 		<div class="jumbotron">

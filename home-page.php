@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<title>Link Shorterner | bernly.com</title>
 		<link href="static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>

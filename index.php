@@ -22,7 +22,7 @@
 		} catch (Exception $e) {
 			echo $e->getMessage() . '<br>';
 		}
-	} else if (!empty($_GET['submit'])) {
+	} else if (!empty($_GET['long_url'])) {
 		try {
 			foreach ($db->query('SELECT id FROM URLs') as $row) {
 				$new_id = $row['id'] + 1;

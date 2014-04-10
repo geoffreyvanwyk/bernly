@@ -16,7 +16,7 @@
 			foreach ($db->query("SELECT long_url FROM URLs WHERE short_url = " . $db->quote($short_url_path)) as $row) {
 				$long_url = $row['long_url'];
 			}
-			http_redirect($long_url);
+			header("Location: $long_url");
 		} catch (PDOException $e) {
 			echo $e->getMessage() . '<br>';
 		} catch (Exception $e) {
@@ -31,9 +31,9 @@
 				$new_id = 1;
 			}
 			$short_url_path = base_convert($new_id, 10, 36); // Only this is stored in the database.
-			$short_url = APP_HOST_NAME . '/' . $short_url_path; // This is displayed as the result.
+			$short_url = APP_HOST_NAME . APP_PATH . $short_url_path; // This is displayed as the result.
 			$db->exec("INSERT INTO URLs(short_url, long_url) VALUES('$short_url_path', '$_GET[long_url]')");
-			http_redirect(APP_PATH.'?result='.$short_url);
+			header('Location: ' .APP_PATH . '?result=' . $short_url);
 		} catch (PDOException $e) {
 			echo $e->getMessage() . '<br>';
 		} catch (Exception $e) {

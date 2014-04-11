@@ -1,7 +1,7 @@
 <?php
 	require_once 'database-connection.php';
 	require_once 'configuration.php';
-
+	
 	if (APP_PATH !== '/') {
 		$app_path_components = explode('/', APP_PATH);
 		$request_uri_components = explode('/', $_SERVER['REQUEST_URI']);

@@ -43,8 +43,10 @@ HEREDOC;
 	} catch (Exception $e) {
 		echo $e->getMessage();
 	}
+	
+	echo "Created file configuration.json" . PHP_EOL;
 
-/* EDIT .htaccess FILE */
+/* CREATE .htaccess FILE */
 	
 	$htaccess_string = <<<HEREDOC
 ErrorDocument 404 {$app_path}index.php
@@ -56,3 +58,6 @@ HEREDOC;
 	} catch (Exception $e) {
 		echo $e->getMessage();
 	}
+	
+	echo "Created file .htaccess." . PHP_EOL;
+	echo "Done.";

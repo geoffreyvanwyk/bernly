@@ -27,6 +27,7 @@ return array(
 	*/
 
 	'url' => 'http://localhost/~geoffrey/bernly/public',
+	'url_no_protocol' => 'localhost/~geoffrey/bernly/public',
 
 	/*
 	|--------------------------------------------------------------------------

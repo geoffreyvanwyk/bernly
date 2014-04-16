@@ -7,7 +7,6 @@ composer.lock
 .DS_Store
 Thumbs.db
 .directory
-.htaccess
 configuration.json
 *.swp
 laravel

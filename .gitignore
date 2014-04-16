@@ -1,4 +1,13 @@
+/bootstrap/compiled.php
+/vendor
+composer.phar
+composer.lock
+.env.*.php
+.env.php
+.DS_Store
+Thumbs.db
 .directory
-configuration.json
 .htaccess
-*swp
+configuration.json
+*.swp
+laravel

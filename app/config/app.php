@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,8 +26,8 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost/~geoffrey/bernly/public',
-	'url_no_protocol' => 'localhost/~geoffrey/bernly/public',
+	'url' => 'http://bernly.com',
+	'url_no_protocol' => 'bernly.com',
 
 	/*
 	|--------------------------------------------------------------------------

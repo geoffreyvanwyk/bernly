@@ -28,7 +28,7 @@
 					<p class="lead text-center">Cut your links down to size.</p>
 				</div>
 				
-				<form action="." method="get">
+				<form action="." method="post">
 					<div class="input-group" style="font-size: 14px !important">
 						<span class="input-group-addon">
 							<span class="glyphicon glyphicon-link"></span>
@@ -58,7 +58,7 @@
 	
 		<div class="container">
 			<div class="page-header">
-				<h3>Result<span class="pull-right"><strong><?=$short_url?></strong></span></h3>
+				<h3>Result<span class="pull-right"><strong><?= Config::get('app.url') ?>/<?= $short_url ?></strong></span></h3>
 			</div>
 		</div>
 		

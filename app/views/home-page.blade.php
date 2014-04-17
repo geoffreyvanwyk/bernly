@@ -8,7 +8,7 @@
 		<meta name="description" content="A link (URL, web address) shortener.">
 		<meta name="keywords" content="link, URL, web address, address, shorter, shorten, link shortener">
 
-		<link href="<?= Config::get('app.url') ?>/../static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="static/bower_components/bootstrap/dist/css/bootstrap.min.css" 	rel="stylesheet">
 	
 		<title>Link Shorterner | bernly.com</title>
 	</head>
@@ -17,9 +17,9 @@
 		<div class="jumbotron">
 			<div class="container">
 				<div class="page-header">
-					<a href="<?= Config::get('app.url') ?>">
+					<a href="/">
 						<img 
-							src="<?= Config::get('app.url') ?>/../static/img/bernly-logo.png" 
+							src="static/img/bernly-logo.png" 
 							width="200" 
 							height="100" 
 							class="center-block"
@@ -54,15 +54,21 @@
 		<div class="container">
 		</div>
 
-	<?php if (isset($short_url)): ?>
+	@if ( isset( $short_url ) )
 	
 		<div class="container">
 			<div class="page-header">
-				<h3>Result<span class="pull-right"><strong><?= Config::get('app.url_no_protocol') ?>/<?= $short_url ?></strong></span></h3>
+				<h3>Result
+					<span class="pull-right">
+						<strong>
+							{{ Config::get('app.url_no_protocol') }}/{{ $short_url }}
+						</strong>
+					</span>
+				</h3>
 			</div>
 		</div>
 		
-	<?php endif; ?>
+	@endif
 	
 	</body>
 </html>

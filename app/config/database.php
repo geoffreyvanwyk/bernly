@@ -54,7 +54,7 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => '127.0.0.1',
 			'database'  => 'bernly',
 			'username'  => 'bernly',
 			'password'  => 's8uzmP8UR7fydYQZ',

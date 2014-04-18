@@ -8,7 +8,7 @@
 		<meta name="description" content="A link (URL, web address) shortener.">
 		<meta name="keywords" content="link, URL, web address, address, shorter, shorten, link shortener">
 
-		<link href="static/bower_components/bootstrap/dist/css/bootstrap.min.css" 	rel="stylesheet">
+		<link rel="stylesheet" href="static/bower_components/bootstrap/dist/css/bootstrap.min.css"	>
 	
 		<title>Link Shorterner | bernly.com</title>
 	</head>
@@ -35,14 +35,14 @@
 						</span>
 						
 						<input 
+							class="form-control input-lg"
 							type="url" 
 							name="long_url" 
 							placeholder="Paste long link here"
-							class="form-control input-lg"
 						>
 						
 						<span class="input-group-btn">
-							<button type="submit" name="submit" class="btn btn-success btn-lg">
+							<button class="btn btn-success btn-lg" type="submit" name="submit" >
 								Shorten
 							</button>
 						</span>

@@ -7,7 +7,7 @@ class HomeController extends BaseController {
 	*/
 	public function getIndex()
 	{
-		return View::make( 'home-page' )->with( 'short_url', Session::get( 'short_url' ) );
+		return View::make( 'home' )->with( 'short_url', Session::get( 'short_url' ) );
 	}
 	
 	/**

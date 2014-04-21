@@ -33,10 +33,22 @@
 						<li><a href="#about">About</a></li>
 						<li><a href="#contact">Contact</a></li>
 					</ul>
+				
+				@if (Auth::check())
+				
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/user/login">Logout</a></li>
+                    </ul>
+                    
+				@else
+				
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="/user/login">Login</a></li>
 						<li><a href="/user/register">Register</a></li>
 					</ul>
+					
+				@endif
+				
 				</div><!--/.nav-collapse -->
 			</div>
 		</div>

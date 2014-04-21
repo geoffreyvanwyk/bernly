@@ -22,4 +22,14 @@ class UserController extends BaseController {
 		
 		return Redirect::to( '/' );
 	}
+	
+	public function getLogin()
+	{
+		return View::make( 'login' );
+	}
+	
+	public function postLogin()
+	{
+		
+	}
 }

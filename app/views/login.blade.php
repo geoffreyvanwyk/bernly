@@ -1,13 +1,29 @@
 @extends( 'layouts.master' )
 
 @section( 'content' )
-
-	<form action="user/login" method="post">
-		<label for="email" class="control-label">Email</label>
-		<input type="email" name="email" id="email" class="form-control">
+	
+	<div class="container">
+	
+		<h1 class="page-header">Login</h1>
+	
+		<form action="/user/login" method="post" role="form">
 		
-		<label for="password" class="control-label">Password</label>
-		<input type="password" name="password" id="password" class="form-control">
-	</form>
+			<div class="form-group">
+				<label for="email">Email address</label>
+				<input type="email" id="email" class="form-control" name="email">
+			</div>
+			
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" class="form-control" name="password">
+			</div>
+			
+			<button class="btn btn-primary">Login</button>
+			
+		</form>
+		
+		<hr>
+		
+	</div>
 	
 @stop

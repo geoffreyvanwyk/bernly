@@ -13,4 +13,5 @@
 
 /* This route must be first; otherwise, a 'Controller method not found.' exception will be thrown. */
 Route::get('{short_url}', 'HomeController@redirectUrl')->where('short_url', '[^/]');
+
 Route::controller( '/', 'HomeController');

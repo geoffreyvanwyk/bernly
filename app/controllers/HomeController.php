@@ -3,8 +3,8 @@
 class HomeController extends BaseController {
 
 	/**
-	* Display the home page, as well as the new short url, if any.
-	*/
+	 * Display the home page, as well as the new short url, if any.
+	 */
 	public function getIndex()
 	{
 		return View::make( 'home' )->with( 'short_url', Session::get( 'short_url' ) );

@@ -1,6 +1,7 @@
 <?php
 
-class UserController extends BaseController {
+class UserController extends BaseController 
+{
 
 	public function getIndex()
 	{
@@ -42,5 +43,12 @@ class UserController extends BaseController {
             'email' => $email,
             'password' => $password
         ));
+	}
+	
+	public function getLogout()
+	{
+        Auth::logout();
+        
+        return Redirect::to('/');
 	}
 }

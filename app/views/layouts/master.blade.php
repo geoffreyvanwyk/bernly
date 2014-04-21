@@ -20,7 +20,8 @@
 		<div class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0px">
 			<div class="container" >
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" 
+                        data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -35,9 +36,14 @@
 					</ul>
 				
 				@if (Auth::check())
+                    
 				
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/user/login">Logout</a></li>
+                        <p class="navbar-text">Logged-in as {{{Auth::user()->email}}}</p>
+                        
+                        <li><button 
+                            onclick="window.location = '/user/logout'" 
+                            class="btn btn-default navbar-btn">Logout</button></li>
                     </ul>
                     
 				@else
@@ -61,7 +67,7 @@
 			</footer>
 		</div>
 		
-		<script src="{{ URL::asset( 'static/bower_components/jquery/jquery.min.js' ) }}"	></script>
-		<script src="{{ URL::asset( 'static/bower_components/bootstrap/dist/js/bootstrap.min.js' ) }}"></script>
+		<script src="{{URL::asset('static/bower_components/jquery/jquery.min.js')}}"></script>
+		<script src="{{URL::asset( 'static/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 	</body>
 </html>

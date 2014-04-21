@@ -55,6 +55,8 @@
 		
 	@endif
 	
+	@if (! Auth::check())
+	
 	    <div class="jumbotron">
 			<div class="container">
 				<h1>Register for more features!</h1>
@@ -77,7 +79,9 @@
 				</div>
 				
 				<p><a class="btn btn-primary btn-lg" role="button">Register Now &raquo;</a></p>
-				
 			</div>
 		</div>
+	
+	@endif
+	
 @stop

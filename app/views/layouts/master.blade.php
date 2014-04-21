@@ -29,13 +29,13 @@
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
+						<li><a href="/">Home</a></li>
 						<li><a href="#about">About</a></li>
 						<li><a href="#contact">Contact</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Login</a></li>
-						<li class="active"><a href="./">Register</a></li>
+						<li><a href="/user/login">Login</a></li>
+						<li><a href="/user/register">Register</a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>

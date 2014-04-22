@@ -57,6 +57,14 @@ class UserController extends BaseController {
         return Redirect::to('/');
 	}
 	
+	/**
+	 * @return Response
+	 */
+	public function getView()
+	{
+        return View::make( 'view' );
+	}
+	
 	private function isEmailValid( $email )
 	{
         return preg_match( 

@@ -39,7 +39,18 @@
 				
                     <ul class="nav navbar-nav navbar-right">
                         <p class="navbar-text">Logged-in as {{{ Auth::user()->email }}}</p>
-                        <li><button onclick="window.location = '/log/out'" class="btn btn-default navbar-btn">Logout</button></li>
+                        
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                My Account<b class="caret"></b>
+                            </a>
+                            
+                            <ul class="dropdown-menu">
+                                <li><a href="/user/view">Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/log/out">Log out</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     
 				@else

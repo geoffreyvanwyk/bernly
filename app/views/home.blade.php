@@ -59,7 +59,7 @@
 	
 	    <div class="jumbotron">
 			<div class="container">
-				<h1>Register for more features!</h1>
+				<h1>Register for advanced features!</h1>
 				
 				<div class="row">
 					<div class="col-md-4">

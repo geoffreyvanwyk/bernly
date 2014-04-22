@@ -35,8 +35,8 @@
 			</div>
 			
 			<div class="checkbox">
-                <label class="control-label">
-                    <input type="checkbox" name="remember_me"> Remember me
+                <label for="remember_me" class="control-label">
+                    <input type="checkbox" id="remember_me" name="remember_me"> Remember me
                 </label>
 			</div>
 			

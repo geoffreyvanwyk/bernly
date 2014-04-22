@@ -44,7 +44,7 @@
                             </a>
                             
                             <ul class="dropdown-menu">
-                                <li><a href="/user/view">Settings</a></li>
+                                <li><a href="/user/view">Profile</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/log/out">Log out</a></li>
                             </ul>

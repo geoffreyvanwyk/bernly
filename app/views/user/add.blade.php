@@ -6,7 +6,7 @@
 	
 		<h1 class="page-header">Register</h1>
 	
-		<form action="/user/register" method="post" role="form">
+		<form action="/user/add" method="post" role="form">
 		
 			<div class="form-group {{ Session::get( 'email_class' ) }}">
 				<label for="email" class="control-label">Email address</label>
@@ -15,9 +15,9 @@
                     id="email" class="form-control" 
                     name="email" value="{{{ Session::get( 'email' ) }}}"
                 >
-                <p class="help-block">{{ Session::get('email_error' ) }}</p>
+                <p class="help-block">{{ Session::get( 'email_error' ) }}</p>
 			</div>
-			
+		
 			<div class="form-group {{ Session::get( 'password_class' ) }}">
 				<label for="password" class="control-label">Password</label>
 				<input 

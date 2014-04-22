@@ -6,6 +6,14 @@
         
         <h1 class="page-header">Profile</h1>
         
+    @if ( Session::get( 'is_edited' ) )
+    
+        <div class="alert alert-success">
+           Your settings have been successfully updated! 
+        </div>
+    
+    @endif
+        
         <div class="row">
         
             <div class="col-sm-3">
@@ -15,6 +23,10 @@
             
             <div class="col-sm-3">
                 {{{ Auth::user()->email }}}
+            </div>
+            
+            <div class="col-sm-3">
+                <a href="/user/edit-email" class="btn btn-info btn-xs">Edit</a>
             </div>
             
         </div>
@@ -30,12 +42,15 @@
                 &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;
             </div>
         
+            <div class="col-sm-3">
+                <a href="/user/edit-password" class="btn btn-info btn-xs">Edit</a>
+            </div>
+            
         </div>
         
         <br>
         
-        <a href="" class="btn btn-info">Edit</a>
-        <a href="" class="btn btn-danger">Delete</a>
+        <a href="/user/remove" class="btn btn-danger">Delete</a>
         
     </div>
     

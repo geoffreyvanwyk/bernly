@@ -2,17 +2,31 @@
 
 class UserController extends BaseController 
 {
-
+    /**
+     * @summary Responds to HTTP GET /. Displays user registration form.
+     *
+     * @return Response
+     */
 	public function getIndex()
 	{
 		return Redirect::to( '/' );
 	}
 
+    /**
+     * @summary Responds to HTTP GET /user/add. Displays user registration form.
+     *
+     * @return Response
+     */
 	public function getAdd()
 	{
 		return View::make( 'user.add' );
 	}
 	
+    /**
+     * @summary Responds to HTTP POST /user/add. Creates new user in database, then displays home page. 
+     *
+     * @return Response
+     */
 	public function postAdd()
 	{
         $email = Input::get( 'email' );

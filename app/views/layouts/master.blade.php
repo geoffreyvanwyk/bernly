@@ -57,7 +57,7 @@
 				
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="/log/in">Login</a></li>
-						<li><a href="/user/register">Register</a></li>
+						<li><a href="/user/add">Register</a></li>
 					</ul>
 					
 				@endif

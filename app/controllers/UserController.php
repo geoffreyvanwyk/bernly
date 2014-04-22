@@ -7,19 +7,19 @@ class UserController extends BaseController {
 		return Redirect::to( '/' );
 	}
 
-	public function getRegister()
+	public function getAdd()
 	{
-		return View::make( 'register' );
+		return View::make( 'user.add' );
 	}
 	
-	public function postRegister()
+	public function postAdd()
 	{
         $email = Input::get( 'email' );
         $password = Input::get( 'password' );
         $confirm_password = Input::get( 'confirm_password' );
         
         if ( ! $this->isEmailValid( $email ) ) {
-            return Redirect::to( '/user/register' )->with( array(
+            return Redirect::to( '/user/add' )->with( array(
                 'email_class' => 'has-error',
                 'email_error' => 'The email you entered is invalid. It should be similar to john@example.com',
                 'email' => $email,
@@ -29,7 +29,7 @@ class UserController extends BaseController {
         }
         
         if ( ! $this->isPasswordValid( $password ) ) {
-            return Redirect::to( '/user/register' )->with( array(
+            return Redirect::to( '/user/add' )->with( array(
                 'password_class' => 'has-error',
                 'password_error' => 'Password should be at least 10 characters long.',
                 'email' => $email,
@@ -39,7 +39,7 @@ class UserController extends BaseController {
         }
         
         if ( ! $this->isPasswordConfirmed( $password, $confirm_password ) ) {
-            return Redirect::to( '/user/register' )->with( array(
+            return Redirect::to( '/user/add' )->with( array(
                 'confirm_password_class' => 'has-error',
                 'confirm_password_error' => 'The passwords do not match.',
                 'email' => $email,
@@ -62,7 +62,7 @@ class UserController extends BaseController {
 	 */
 	public function getView()
 	{
-        return View::make( 'view' );
+        return View::make( 'user.view' );
 	}
 	
 	private function isEmailValid( $email )

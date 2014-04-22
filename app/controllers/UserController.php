@@ -3,7 +3,7 @@
 class UserController extends BaseController 
 {
     /**
-     * @summary Responds to HTTP GET /. Displays user registration form.
+     * @summary Responds to HTTP GET /. Displays home page. 
      *
      * @return Response
      */

@@ -153,6 +153,26 @@ class UserController extends BaseController
         return Redirect::to('/user/view')->with( 'is_edited', true );
     }
     
+    /**
+     * @summary Responds to HTTP POST /user/remove. Deletes logged-in user from database. 
+     * 
+     * @return Response
+     */
+    public function getRemove()
+    {
+        $user = User::find( Auth::user()->id );
+        $user->delete();
+        
+        return Redirect::to( '/' );
+    }
+    
+    /**
+     * @summary Returns true if $email is valid. 
+     *
+     * @param string $email An email address.
+     *
+     * @return boolean
+     */
 	private function isEmailValid( $email )
 	{
         return preg_match( 
@@ -161,11 +181,26 @@ class UserController extends BaseController
         );
 	}
 	
+	/**
+	 * @summary Returns true if $password is valid.
+	 * 
+	 * @param string $password
+	 *
+	 * @return boolean
+	 */
     private function isPasswordValid( $password )
     {
         return strlen( $password ) >= 10;
     }
     
+    /**
+     * @summary Returns true if $password and $confirm_password are the same. 
+     *
+     * @param string $password
+     * @param string $confirm_password
+     *
+     * @return boolean
+     */
     private function isPasswordConfirmed( $password, $confirm_password )
     {
         return $password === $confirm_password;

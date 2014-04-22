@@ -13,6 +13,7 @@
 						class="center-block"
 					>
 				</a>
+				
 				<p class="lead text-center">Cut your links down to size.</p>
 			</div>
 			

@@ -39,14 +39,14 @@
 		</div>
 	</div>
 	
-	@if ( isset( $short_url ) )
+	@if ( Session::get( 'short_url' ) )
 	
 		<div class="container">
 			<div class="page-header">
 				<h3>Result
 					<span class="pull-right">
 						<strong>
-							{{ Config::get('app.url_no_protocol') }}/{{ $short_url }}
+							{{ Config::get( 'app.url_no_protocol' ) }}/{{ Session::get( 'short_url' ) }}
 						</strong>
 					</span>
 				</h3>
@@ -55,7 +55,7 @@
 		
 	@endif
 	
-	@if (! Auth::check())
+	@if ( ! Auth::check() )
 	
 	    <div class="jumbotron">
 			<div class="container">

@@ -3,16 +3,20 @@
 class HomeController extends BaseController {
 
 	/**
-	 * Display the home page, as well as the new short url, if any.
+	 * @summary Display the home page, as well as the new short url, if any.
+	 *
+	 * @return void
 	 */
 	public function getIndex()
 	{
-		return View::make( 'home' )->with( 'short_url', Session::get( 'short_url' ) );
+		return View::make( 'home' );
 	}
 	
 	/**
-	* For a given long URL, create a short URL.
-	*/
+	 * @summary For a given long URL, create a short URL.
+	 *
+	 * @return void
+	 */
 	public function postIndex()
 	{
 		$long_url = Input::get( 'long_url' );
@@ -28,9 +32,13 @@ class HomeController extends BaseController {
 	}
 	
 	/** 
-	* For a given short URL, redirect to the corresponding long URL. 
-	*/
-	public function redirectUrl($short_url)
+	 * @summary For a given short URL, redirect to the corresponding long URL. 
+	 * 
+	 * @param string $short_url The short URL from which the browser should redirect to original long URL.
+	 *
+	 * @return void
+	 */
+	public function redirectUrl( $short_url )
 	{
 		$url = Url::where( 'short_url', '=', (int) $short_url )->firstOrFail();
 		return Redirect::to( $url['long_url'] );

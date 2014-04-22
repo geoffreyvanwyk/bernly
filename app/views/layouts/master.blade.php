@@ -35,15 +35,11 @@
 						<li><a href="#contact">Contact</a></li>
 					</ul>
 				
-				@if (Auth::check())
-                    
+				@if ( Auth::check() )
 				
                     <ul class="nav navbar-nav navbar-right">
-                        <p class="navbar-text">Logged-in as {{{Auth::user()->email}}}</p>
-                        
-                        <li><button 
-                            onclick="window.location = '/user/logout'" 
-                            class="btn btn-default navbar-btn">Logout</button></li>
+                        <p class="navbar-text">Logged-in as {{{ Auth::user()->email }}}</p>
+                        <li><button onclick="window.location = '/user/logout'" class="btn btn-default navbar-btn">Logout</button></li>
                     </ul>
                     
 				@else
@@ -67,7 +63,7 @@
 			</footer>
 		</div>
 		
-		<script src="{{URL::asset('static/bower_components/jquery/jquery.min.js')}}"></script>
-		<script src="{{URL::asset( 'static/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+		<script src="{{ URL::asset( 'static/bower_components/jquery/jquery.min.js' ) }}"></script>
+		<script src="{{ URL::asset( 'static/bower_components/bootstrap/dist/js/bootstrap.min.js' ) }}"></script>
 	</body>
 </html>

@@ -5,7 +5,7 @@ class HomeController extends BaseController {
 	/**
 	 * @summary Display the home page, as well as the new short url, if any.
 	 *
-	 * @return void
+	 * @return Response
 	 */
 	public function getIndex()
 	{

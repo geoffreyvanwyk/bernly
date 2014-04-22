@@ -41,7 +41,7 @@
 			</div>
 			
 			<button class="btn btn-primary">Submit</button>
-			
+            <a href="/password/remind">Forgot password?</a>
 		</form>
 		
 		<hr>

@@ -55,7 +55,9 @@ class UserController extends BaseController
         $user->setRememberToken( 'remember' );
         $user->save();
         
-        return Redirect::to('/');
+        Auth::login( $user );
+        
+        return Redirect::to( '/' );
 	}
 	
 	/**

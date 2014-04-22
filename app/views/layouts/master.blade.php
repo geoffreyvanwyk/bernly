@@ -38,8 +38,6 @@
 				@if ( Auth::check() )
 				
                     <ul class="nav navbar-nav navbar-right">
-                        <p class="navbar-text">Logged-in as {{{ Auth::user()->email }}}</p>
-                        
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 My Account<b class="caret"></b>

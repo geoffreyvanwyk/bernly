@@ -74,33 +74,4 @@ class UserController extends BaseController {
     {
         return $password === $confirm_password;
     }
-    
-	public function getLogin()
-	{
-		return View::make( 'login' );
-	}
-	
-	public function postLogin()
-	{
-        $email = Input::get( 'email' );
-        $password = Input::get( 'password' );
-        $remember_me = Input::get( 'remember_me' );
-        
-        if (Auth::attempt( array( 'email' => $email, 'password' => $password ), $remember_me ) ) {
-            return Redirect::intended('/');
-        }
-        
-        return Redirect::to( '/user/login' )->with( array(
-            'error' => true,
-            'email' => $email,
-            'password' => $password
-        ));
-	}
-	
-	public function getLogout()
-	{
-        Auth::logout();
-        
-        return Redirect::to( '/' );
-	}
 }

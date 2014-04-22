@@ -14,7 +14,7 @@
         
     @endif
         
-		<form action="/user/login" method="post" role="form">
+		<form action="/log/in" method="post" role="form">
 		
 			<div class="form-group">
 				<label for="email" class="control-label">Email address</label>

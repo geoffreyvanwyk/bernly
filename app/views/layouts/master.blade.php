@@ -39,13 +39,13 @@
 				
                     <ul class="nav navbar-nav navbar-right">
                         <p class="navbar-text">Logged-in as {{{ Auth::user()->email }}}</p>
-                        <li><button onclick="window.location = '/user/logout'" class="btn btn-default navbar-btn">Logout</button></li>
+                        <li><button onclick="window.location = '/log/out'" class="btn btn-default navbar-btn">Logout</button></li>
                     </ul>
                     
 				@else
 				
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="/user/login">Login</a></li>
+						<li><a href="/log/in">Login</a></li>
 						<li><a href="/user/register">Register</a></li>
 					</ul>
 					

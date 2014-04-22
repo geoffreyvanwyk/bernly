@@ -15,6 +15,7 @@
 Route::get( '{short_url}', 'HomeController@redirectUrl' )->where( 'short_url', '[^/]' );
 
 Route::controller( 'user', 'UserController' );
+Route::controller( 'log', 'LoginController' );
 Route::controller( 'password', 'RemindersController' );
 
 /* This route must be last; otherwise, a 'Controller method not found.' exception will be thrown. */

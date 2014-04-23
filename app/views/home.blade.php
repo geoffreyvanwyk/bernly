@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     
-                    <p><a class="btn btn-primary btn-lg" role="button">Register Now &raquo;</a></p>
+                    <p><a class="btn btn-primary btn-lg" href="/user/add" role="button">Register Now &raquo;</a></p>
             </div>
 		</div>
 	

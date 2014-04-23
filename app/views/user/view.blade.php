@@ -16,12 +16,12 @@
         
         <div class="row">
         
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <span class="glyphicon glyphicon-envelope"></span>
-                <strong> Email address</strong> 
+                <strong> Email</strong> 
             </div>
             
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 {{{ Auth::user()->email }}}
             </div>
             
@@ -33,12 +33,12 @@
         
         <div class="row">
         
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <span class="glyphicon glyphicon-eye-close"></span>
-                <strong> Password </strong> 
+                <strong> Password</strong> 
             </div>
             
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 &#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;
             </div>
         

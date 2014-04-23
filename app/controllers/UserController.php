@@ -3,6 +3,17 @@
 class UserController extends BaseController 
 {
     /**
+     * @summary Adds an authentication route filter to some user routes, redirecting the guest to the login
+     * form.
+     *
+     * @return UserController
+     */
+    public function __construct()
+    {
+        $this->beforeFilter( 'auth', array( 'except' => array( 'getIndex', 'getAdd', 'postAdd' ) ) );
+    }
+    
+    /**
      * @summary Responds to HTTP GET /. Displays home page. 
      *
      * @return Response

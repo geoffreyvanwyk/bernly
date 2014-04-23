@@ -18,7 +18,10 @@ class VerifyController extends BaseController
                 ->subject( 'Email Verification' );
         });
         
-        return Redirect::to( '/' );
+        return Redirect::to( 'user/view' )->with( array( 
+            'is_edited_email' => Session::get( 'is_edited_email' ),
+            'is_resent' => (bool) Input::get( 'resent' )
+        ));
     }
     
     public function getEmail()

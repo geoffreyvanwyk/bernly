@@ -125,9 +125,10 @@ class UserController extends BaseController
         
         $user = User::find( Auth::user()->id );
         $user->email = $email;
+        $user->verified = false;
         $user->save();
         
-        return Redirect::to('/user/view')->with( 'is_edited', true );
+        return Redirect::to( '/verify' )->with( 'is_edited_email', true );
     }
     
     /**
@@ -175,7 +176,7 @@ class UserController extends BaseController
         $user->password = Hash::make( $password );
         $user->save();
         
-        return Redirect::to('/user/view')->with( 'is_edited', true );
+        return Redirect::to('/user/view')->with( 'is_edited_password', true );
     }
     
     /**

@@ -89,7 +89,7 @@
                         <div class="col-md-4">
                             <div class="jumbotron" style="background: #5cb85c; margin-bottom: 0;">
                                 <h1 class="text-center" style="color: white">$10</h2>
-                                <p class="text-center" style="color: white">per month</p>
+                                <h3 class="text-center" style="color: white">per month</h3>
                             </div>
                         </div>
                     </div>

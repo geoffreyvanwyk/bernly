@@ -12,6 +12,10 @@
 			rel="stylesheet" 
 			href="{{ URL::asset( 'static/bower_components/bootstrap/dist/css/bootstrap.min.css' ) }}"
 		>
+        <link 
+            rel="stylesheet" 
+            href="{{ URL::asset( 'static/css/sticky-footer.css' ) }}"
+        >
         
         @yield( 'styles' )
 	
@@ -79,13 +83,16 @@
 
 		@yield( 'content' )
 		
-		<div class="container">
-			<footer>
-				<p>&copy; Bernadine Computing (Pty) Ltd. 2014</p>
-			</footer>
-		</div>
-		
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted">&copy; Bernadine Computing (Pty) Ltd. 2014</p>
+            </div>
+        </div>
+
 		<script src="{{ URL::asset( 'static/bower_components/jquery/jquery.min.js' ) }}"></script>
 		<script src="{{ URL::asset( 'static/bower_components/bootstrap/dist/js/bootstrap.min.js' ) }}"></script>
+		
+		@yield( 'scripts' )
+		
 	</body>
 </html>

@@ -29,7 +29,6 @@
 	
 	@if ( Session::get( 'short_url' ) )
 	
-	
         <div class="container" >
             <div class="jumbotron">
                     <table class="table table-condensed table-striped" >
@@ -88,8 +87,10 @@
                         </div>
                         
                         <div class="col-md-4">
-                            <h2>$10</h2>
-                            <p>per month</p>
+                            <div class="jumbotron" style="background: #5cb85c; margin-bottom: 0;">
+                                <h1 class="text-center" style="color: white">$10</h2>
+                                <p class="text-center" style="color: white">per month</p>
+                            </div>
                         </div>
                     </div>
                     

@@ -28,7 +28,19 @@ class HomeController extends BaseController {
 		$url->short_url = $short_url;
 		$url->save();
 		
-		return Redirect::to( '/' )->with( 'short_url', $short_url );
+		if ( Auth::check() ) {
+            
+            $user_url = new UserUrl;
+            $user_url->user_id = Auth::user()->id;
+            $user_url->url_id = $url->id;
+            $user_url->save();
+            
+		}
+		
+		return Redirect::to( '/' )->with( array( 
+            'short_url' => Config::get( 'app.url_no_protocol' ).'/'.$short_url, 
+            'long_url' => $long_url 
+        ));
 	}
 	
 	/** 

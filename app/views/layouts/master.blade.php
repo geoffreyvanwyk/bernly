@@ -12,21 +12,34 @@
 			rel="stylesheet" 
 			href="{{ URL::asset( 'static/bower_components/bootstrap/dist/css/bootstrap.min.css' ) }}"
 		>
+        
+        @yield( 'styles' )
 	
-		<title>Link Shorterner | bernly.com</title>
+		<title>bernly.com | Link Shorterner</title>
 	</head>
 	
 	<body>
-		<div class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0px">
+		<div class="navbar navbar-default" role="navigation">
 			<div class="container" >
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" 
-                        data-target=".navbar-collapse">
+					<button class="navbar-toggle" 
+                        type="button"
+                        data-toggle="collapse" 
+                        data-target=".navbar-collapse"
+                    >
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
+					
+                    <a class="navbar-brand" href="/">
+                        <img 
+                            src="{{ URL::asset( 'static/img/bernly-logo.png') }}" 
+                            width="41.11" 
+                            height="20" 
+                        >
+                    </a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">

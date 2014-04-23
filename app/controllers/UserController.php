@@ -71,7 +71,7 @@ class UserController extends BaseController
         
         Auth::login( $user );
         
-        return Redirect::to( '/' );
+        return Redirect::to( '/verify' );
 	}
 	
 	/**

@@ -15,6 +15,7 @@
 Route::get( '{short_url}', 'HomeController@redirectUrl' )->where( 'short_url', '[^/]' );
 
 Route::controller( 'user', 'UserController' );
+Route::controller( 'verify', 'VerifyController' );
 Route::controller( 'log', 'LoginController' );
 Route::controller( 'password', 'RemindersController' );
 

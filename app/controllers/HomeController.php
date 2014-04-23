@@ -56,7 +56,11 @@ class HomeController extends BaseController {
 		
 		$url_hit = new UrlHit;
 		$url_hit->url_id = $url->id;
-		$url_hit->referer = Request::header( 'Referer' );
+		
+		if ( Request::header( 'Referer' ) ) {
+            $url_hit->referer = Request::header( 'Referer' );
+        }
+        
 		$url_hit->save();
 		
 		return Redirect::to( $url['long_url'] );

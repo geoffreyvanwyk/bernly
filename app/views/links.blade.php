@@ -16,6 +16,7 @@
         
         <tbody>
         
+    @if ( ! empty( $urls ) )
         @foreach ( $urls as $url )
         
             <tr>
@@ -27,6 +28,17 @@
             </tr>
         
         @endforeach
+    @else
+        
+        <tr>
+            <td colspan="4">
+                <div class="alert alert-info">
+                    <p class="text-center">You do not have any links yet.</p>
+                </div>
+            </td>
+        </tr>
+        
+    @endif
         
         </tbody>
     </table>

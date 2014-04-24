@@ -10,11 +10,11 @@
 
 		<link 
 			rel="stylesheet" 
-			href="{{ URL::asset( 'static/bower_components/bootstrap/dist/css/bootstrap.min.css' ) }}"
+			href="{{ Illuminate\Support\Facades\URL::asset( 'static/bower_components/bootstrap/dist/css/bootstrap.min.css' ) }}"
 		>
         <link 
             rel="stylesheet" 
-            href="{{ URL::asset( 'static/css/sticky-footer.css' ) }}"
+            href="{{ Illuminate\Support\Facades\URL::asset( 'static/css/sticky-footer.css' ) }}"
         >
         
         @yield( 'styles' )
@@ -39,7 +39,7 @@
 					
                     <a class="navbar-brand" href="/">
                         <img 
-                            src="{{ URL::asset( 'static/img/bernly-logo.png') }}" 
+                            src="{{ Illuminate\Support\Facades\URL::asset( 'static/img/bernly-logo.png') }}" 
                             width="41.11" 
                             height="20" 
                         >
@@ -89,8 +89,8 @@
             </div>
         </div>
 
-		<script src="{{ URL::asset( 'static/bower_components/jquery/jquery.min.js' ) }}"></script>
-		<script src="{{ URL::asset( 'static/bower_components/bootstrap/dist/js/bootstrap.min.js' ) }}"></script>
+		<script src="{{ Illuminate\Support\Facades\URL::asset( 'static/bower_components/jquery/jquery.min.js' ) }}"></script>
+		<script src="{{ Illuminate\Support\Facades\URL::asset( 'static/bower_components/bootstrap/dist/js/bootstrap.min.js' ) }}"></script>
 		
 		@yield( 'scripts' )
 		

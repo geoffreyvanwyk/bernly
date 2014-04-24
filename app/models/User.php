@@ -80,4 +80,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	/**
+	 * @summary One-to-Many relationship between a User and Urls: One User shortens many Urls. It is coded
+	 * here as Many-to-Many, because it is actually One-to-Zero-or-Many, and exists via an intermediate 
+	 * database table.
+	 * 
+	 */
+    public function urls() 
+    {
+        return $this->belongsToMany( 'Url' );
+    }
 }

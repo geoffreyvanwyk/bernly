@@ -1,10 +1,10 @@
 <?php
 
-class UserUrl extends Eloquent {
+class UrlUser extends Eloquent {
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'users_urls';
+	protected $table = 'url_user';
 }

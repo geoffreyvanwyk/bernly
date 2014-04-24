@@ -9,6 +9,19 @@ class HomeController extends BaseController {
 	 */
 	public function getIndex()
 	{
+        if ( Auth::check() ) {
+            $user = User::find( Auth::user()->id );
+            $urls = $user->urls->toArray();
+            $urls_with_hits = array();
+            
+            foreach ( $urls as $url ) {
+                $url['hits'] = Url::find( $url['id'] )->urlHits()->count();
+                $urls_with_hits[] = $url;
+            }
+            
+            return View::make( 'home' )->with( 'urls', $urls_with_hits );
+        }
+        
 		return View::make( 'home' );
 	}
 	
@@ -30,7 +43,7 @@ class HomeController extends BaseController {
 		
 		if ( Auth::check() ) {
             
-            $user_url = new UserUrl;
+            $user_url = new UrlUser;
             $user_url->user_id = Auth::user()->id;
             $user_url->url_id = $url->id;
             $user_url->save();

@@ -30,7 +30,9 @@ class UserController extends BaseController
      */
 	public function getAdd()
 	{
-		return View::make( 'user.add' );
+        $timezones = DateTimeZone::listIdentifiers( DateTimeZone::ALL );
+        
+		return View::make( 'user.add' )->with( 'timezones', $timezones );
 	}
 	
     /**
@@ -75,7 +77,7 @@ class UserController extends BaseController
             ));
         }
         
-        if ( empty( $timezone ) ) {
+        if ( $timezone === 'Please select ...' ) {
             return Redirect::to( '/user/add' )->with( array(
                 'timezone_class' => 'has-error',
                 'timezone_error' => 'A timezone is required.',

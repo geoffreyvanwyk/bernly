@@ -14,7 +14,14 @@ class HomeController extends BaseController {
             $urls = $user->urls()->orderBy( 'created_at', 'desc' )->take(5)->get()->toArray();
             $urls_with_hits = array();
             
+            $db_time_zone = new DateTimeZone( 'UTC' );
+            $user_timezone = new DateTimeZone( Auth::user()->timezone );
+            
             foreach ( $urls as $url ) {
+                $created_at = new DateTime( $url['created_at'], $db_time_zone );
+                $created_at->setTimeZone( $user_timezone );
+                $url['created_at'] = $created_at->format( 'Y-m-d H:i:s' );
+            
                 $url['hits'] = Url::find( $url['id'] )->urlHits()->count();
                 $urls_with_hits[] = $url;
             }

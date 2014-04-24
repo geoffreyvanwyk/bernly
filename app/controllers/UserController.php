@@ -290,7 +290,14 @@ class UserController extends BaseController
         $urls = $user->urls()->orderBy( 'created_at', 'desc' )->get()->toArray();
         $urls_with_hits = array();
         
+        $db_time_zone = new DateTimeZone( 'UTC' );
+        $user_timezone = new DateTimeZone( Auth::user()->timezone );
+        
         foreach ( $urls as $url ) {
+            $created_at = new DateTime( $url['created_at'], $db_time_zone );
+            $created_at->setTimeZone( $user_timezone );
+            $url['created_at'] = $created_at->format( 'Y-m-d H:i:s' );
+            
             $url['hits'] = Url::find( $url['id'] )->urlHits()->count();
             $urls_with_hits[] = $url;
         }
@@ -309,7 +316,21 @@ class UserController extends BaseController
         $url_object = Url::find( $url_id );
         $url_hits = $url_object->urlHits;
         $url = $url_object->toArray();
-        $url['hits'] = $url_hits;
+        
+        $db_time_zone = new DateTimeZone( 'UTC' );
+        $user_timezone = new DateTimeZone( Auth::user()->timezone );
+        
+        $created_at = new DateTime( $url['created_at'], $db_time_zone );
+        $created_at->setTimeZone( $user_timezone );
+        $url['created_at'] = $created_at->format( 'Y-m-d H:i:s' );
+        
+        foreach ( $url_hits as $url_hit ) {
+            $url_hit_created_at = new DateTime( $url_hit['created_at'], $db_time_zone );
+            $url_hit_created_at->setTimeZone( $user_timezone );
+            $url_hit['created_at'] = $url_hit_created_at->format( 'Y-m-d H:i:s' );
+            
+            $url['hits'][] = $url_hit;
+        }
         
         return View::make( 'clicks' )->with( 'url', $url );
     }

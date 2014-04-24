@@ -231,4 +231,23 @@ class UserController extends BaseController
     {
         return $password === $confirm_password;
     }
+    
+    /**
+     * @summary Responds to HTTP GET /user/links. Displays a list of all logged-in user's links.
+     *
+     * @return Response
+     */
+    public function getLinks()
+    {
+        $user = User::find( Auth::user()->id );
+        $urls = $user->urls()->orderBy( 'created_at', 'desc' )->get()->toArray();
+        $urls_with_hits = array();
+        
+        foreach ( $urls as $url ) {
+            $url['hits'] = Url::find( $url['id'] )->urlHits()->count();
+            $urls_with_hits[] = $url;
+        }
+        
+        return View::make( 'links' )->with( 'urls', $urls_with_hits );
+    }
 }

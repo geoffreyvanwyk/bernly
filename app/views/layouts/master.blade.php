@@ -62,6 +62,7 @@
                             
                             <ul class="dropdown-menu">
                                 <li><a href="/user/view">Profile</a></li>
+                                <li><a href="/user/links">Links</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/log/out">Log out</a></li>
                             </ul>

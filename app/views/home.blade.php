@@ -100,7 +100,7 @@
         </table>
         
         
-        <p>&nbsp;<a class="btn btn-primary" href="/user/add" role="button">View All &raquo;</a></p>
+        <p>&nbsp;<a class="btn btn-primary" href="/user/links" role="button">View All &raquo;</a></p>
     </div>
 </div>
 

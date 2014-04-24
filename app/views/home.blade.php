@@ -30,65 +30,78 @@
 @if ( Session::get( 'short_url' ) )
 
 <div class="container" >
-    <div class="jumbotron">
-            <table class="table table-condensed table-striped" >
-                <thead>
-                    <th>Short Link</th>
-                    <th>Length</th>
-                </thead>
-                
-                <tbody>
-                    <tr>
-                        <td>{{ Session::get( 'short_url' ) }}</td>
-                        <td class="text-center" style="width: 15px">{{ strlen( Session::get( 'short_url' ) ) }}</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Result</h3>
+        </div>
+        
+        <table class="table table-condensed" >
+            <thead>
+                <th>Short Link</th>
+                <th>Length</th>
+            </thead>
             
-            <table class="table table-condensed table-striped">
-                <thead>
-                    <th>Long Link</th>
-                    <th>Length</th>
-                </thead>
-                
-                <tbody style="background-color: rgba(0,0,0,0)">
-                    <tr>
-                        <td >{{ Session::get( 'long_url' ) }}</td>
-                        <td class="text-center" style="width: 15px">{{ strlen( Session::get( 'long_url' ) ) }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <tbody>
+                <tr>
+                    <td>{{ Session::get( 'short_url' ) }}</td>
+                    <td class="text-center" style="width: 15px">{{ strlen( Session::get( 'short_url' ) ) }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table class="table table-condensed">
+            <thead>
+                <th>Long Link</th>
+                <th>Length</th>
+            </thead>
+            
+            <tbody>
+                <tr>
+                    <td >{{ Session::get( 'long_url' ) }}</td>
+                    <td class="text-center" style="width: 15px">{{ strlen( Session::get( 'long_url' ) ) }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
     
 @endif
 
-@if ( $urls )
+@if ( isset( $urls ) )
 
 <div class="container">
-    <h3 class="page-header">Clicks</h3>
-
-    <table class="table">
-        <thead>
-            <th>Long Link</th>
-            <th>Short Link</th>
-            <th class="text-center">Clicks</th>
-        </thead>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Your Recent Links with Clicks</h3>
+        </div>
         
-        <tbody>
+        <table class="table table-condensed">
+            <thead>
+                <th>Long Link</th>
+                <th>Short Link</th>
+                <th>Created</th>
+                <th class="text-center">Clicks</th>
+            </thead>
+            
+            <tbody>
+            
+            @foreach ( $urls as $url )
+            
+                <tr>
+                    <td>{{ $url['long_url'] }}</td>
+                    <td>{{ Config::get( 'app.url_no_protocol' ) }}/{{ $url['short_url'] }}</td>
+                    <td>{{ $url['created_at'] }}</td>
+                    <td class="text-center">{{ $url['hits'] }}</td>
+                </tr>
+            
+            @endforeach
+            
+            </tbody>
+        </table>
         
-        @foreach ( $urls as $url )
         
-            <tr>
-                <td>{{ $url['long_url'] }}</td>
-                <td>{{ Config::get( 'app.url_no_protocol' ) }}/{{ $url['short_url'] }}</td>
-                <td class="text-center">{{ $url['hits'] }}</td>
-            </tr>
-        
-        @endforeach
-        
-        </tbody>
-    </table>
+        <p>&nbsp;<a class="btn btn-primary" href="/user/add" role="button">View All &raquo;</a></p>
+    </div>
 </div>
 
 @endif
@@ -109,7 +122,7 @@
                 </div>
                 
                 <div class="col-md-4">
-                    <h2>Tracking</h2>
+                    <h2>Track all clicks</h2>
                     <p>
                         See on which web sites your links have been clicked, and how many times they have
                         been clicked.
@@ -117,7 +130,7 @@
                 </div>
                 
                 <div class="col-md-4">
-                    <div class="jumbotron" style="background: #5cb85c; margin-bottom: 0;">
+                    <div class="jumbotron" style="background: #5cb85c;">
                         <h1 class="text-center" style="color: white">$10</h2>
                         <h3 class="text-center" style="color: white">per month</h3>
                     </div>

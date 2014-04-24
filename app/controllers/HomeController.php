@@ -11,7 +11,7 @@ class HomeController extends BaseController {
 	{
         if ( Auth::check() ) {
             $user = User::find( Auth::user()->id );
-            $urls = $user->urls->toArray();
+            $urls = $user->urls()->orderBy( 'created_at', 'desc' )->take(5)->get()->toArray();
             $urls_with_hits = array();
             
             foreach ( $urls as $url ) {

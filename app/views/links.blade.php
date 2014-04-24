@@ -23,7 +23,7 @@
                 <td>{{ Config::get( 'app.url_no_protocol' ) }}/{{ $url['short_url'] }}</td>
                 <td>{{ $url['created_at'] }}</td>
                 <td class="text-center">{{ $url['hits'] }}</td>
-                <td><a href="#">Details</a></td>
+                <td><a href="/user/link/{{ $url['id'] }}">Details</a></td>
             </tr>
         
         @endforeach

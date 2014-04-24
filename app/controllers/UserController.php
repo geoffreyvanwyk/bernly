@@ -250,4 +250,20 @@ class UserController extends BaseController
         
         return View::make( 'links' )->with( 'urls', $urls_with_hits );
     }
+    
+    /**
+     * @summary Responds to HTTP GET /user/link/{url_id}. Displays, for a given url_id, a list of click 
+     * details: referer, click date.
+     *
+     * @return Response
+     */
+    public function getLink( $url_id )
+    {
+        $url_object = Url::find( $url_id );
+        $url_hits = $url_object->urlHits;
+        $url = $url_object->toArray();
+        $url['hits'] = $url_hits;
+        
+        return View::make( 'clicks' )->with( 'url', $url );
+    }
 }

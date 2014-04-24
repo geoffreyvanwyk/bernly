@@ -180,7 +180,6 @@ class UserController extends BaseController
             return Redirect::to( '/user/edit-password' )->with( array(
                 'confirm_password_class' => 'has-error',
                 'confirm_password_error' => 'The passwords do not match.',
-                'email' => $email,
                 'password' => $password,
                 'confirm_password' => $confirm_password
             ));
@@ -193,6 +192,40 @@ class UserController extends BaseController
         return Redirect::to('/user/view')->with( 'is_edited_password', true );
     }
     
+    /**
+     * @summary Responds to HTTP GET /user/edit-timezone. Displays timezone edit form.
+     * 
+     * @return Response
+     */
+    public function getEditTimezone()
+    {
+        $timezones = DateTimeZone::listIdentifiers( DateTimeZone::ALL );
+        return View::make( 'user.edit-timezone' )->with( 'timezones', $timezones );
+    }
+    
+    /**
+     * @summary Responds to HTTP POST /user/edit-timezone. Updates logged-in user's timezone, then
+     * displays user's profile with a success message.
+     * 
+     * @return Response
+     */
+    public function postEditTimezone()
+    {
+        $timezone = Input::get( 'timezone' );
+        
+        if ( $timezone === 'Please select ...' ) {
+            return Redirect::to( '/user/edit-timezone' )->with( array(
+                'timezone_class' => 'has-error',
+                'timezone_error' => 'A timezone is required.'
+            ));
+        }
+        
+        $user = User::find( Auth::user()->id );
+        $user->timezone = $timezone;
+        $user->save();
+        
+        return Redirect::to( '/user/view' )->with( 'is_edited_timezone', true );
+    }
     /**
      * @summary Responds to HTTP POST /user/remove. Deletes logged-in user from database. 
      * 

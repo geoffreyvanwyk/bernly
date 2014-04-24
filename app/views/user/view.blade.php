@@ -21,6 +21,14 @@
 
 @endif
 
+@if ( Session::get( 'is_edited_timezone' ) )
+
+    <div class="alert alert-success">
+        <strong>Success!</strong> Your timezone has been successfully updated! 
+    </div>
+
+@endif
+
 @if ( Session::get( 'is_resent' ) )
 
     <div class="alert alert-info">
@@ -69,6 +77,21 @@
     
         <div class="col-sm-3">
             <a href="/user/edit-password" class="btn btn-info btn-xs">Edit</a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-2">
+            <span class="glyphicon glyphicon-time"></span>
+            <strong> Timezone</strong> 
+        </div>
+        
+        <div class="col-sm-4">
+            {{{ Auth::user()->timezone }}}
+        </div>
+    
+        <div class="col-sm-3">
+            <a href="/user/edit-timezone" class="btn btn-info btn-xs">Edit</a>
         </div>
     </div>
     

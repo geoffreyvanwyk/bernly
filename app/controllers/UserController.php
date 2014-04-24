@@ -43,6 +43,7 @@ class UserController extends BaseController
         $email = Input::get( 'email' );
         $password = Input::get( 'password' );
         $confirm_password = Input::get( 'confirm_password' );
+        $timezone = Input::get( 'timezone' );
         
         if ( ! $this->isEmailValid( $email ) ) {
             return Redirect::to( '/user/add' )->with( array(
@@ -74,9 +75,20 @@ class UserController extends BaseController
             ));
         }
         
+        if ( empty( $timezone ) ) {
+            return Redirect::to( '/user/add' )->with( array(
+                'timezone_class' => 'has-error',
+                'timezone_error' => 'A timezone is required.',
+                'email' => $email,
+                'password' => $password,
+                'confirm_password' => $confirm_password
+            ));
+        }
+        
         $user = new User;
         $user->email = $email;
         $user->password = Hash::make( $password );
+        $user->timezone = $timezone;
         $user->setRememberToken( 'remember' );
         $user->save();
         

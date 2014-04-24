@@ -98,10 +98,9 @@
             
             </tbody>
         </table>
-        
-        
-        <p>&nbsp;<a class="btn btn-primary" href="/user/links" role="button">View All &raquo;</a></p>
     </div>
+    
+    <p>&nbsp;<a class="btn btn-primary" href="/user/links" role="button">View All &raquo;</a></p>
 </div>
 
 @endif

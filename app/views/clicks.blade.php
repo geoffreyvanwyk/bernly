@@ -48,10 +48,11 @@
         
     @endforeach
 @else
+
     <tr>
         <td colspan="2">
             <div class="alert alert-info">
-                The link has not been clicked yet.
+                <p class="text-center">The link has not been clicked yet.</p>
             </div>
         </td>
     </tr>

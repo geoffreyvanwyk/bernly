@@ -67,7 +67,7 @@
     
 @endif
 
-@if ( isset( $urls ) )
+@if ( ! empty( $urls ) )
 
 <div class="container">
     <div class="panel panel-primary">

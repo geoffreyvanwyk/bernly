@@ -324,6 +324,7 @@ class UserController extends BaseController
         $created_at->setTimeZone( $user_timezone );
         $url['created_at'] = $created_at->format( 'Y-m-d H:i:s' );
         
+        $url['hits'] = array();
         foreach ( $url_hits as $url_hit ) {
             $url_hit_created_at = new DateTime( $url_hit['created_at'], $db_time_zone );
             $url_hit_created_at->setTimeZone( $user_timezone );

@@ -14,7 +14,7 @@ return array(
 	*/
 
 	'debug' => true,
-	
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application URL
@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://bernly',
-	'url_no_protocol' => 'bernly'
-	
+	'url' => 'http://bernly.dev',
+	'url_no_protocol' => 'bernly.dev'
+
 );

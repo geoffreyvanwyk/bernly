@@ -248,20 +248,14 @@ class UserController extends BaseController
     public function getLinks()
     {
         $user = User::find( Auth::user()->id );
-        $urls = $user->urls()->orderBy( 'created_at', 'desc' )->get()->toArray();
-        $urls_with_hits = array();
 
-        $db_time_zone = new DateTimeZone( 'UTC' );
-        $user_timezone = new DateTimeZone( Auth::user()->timezone );
-
-        foreach ( $urls as $url ) {
-            $created_at = new DateTime( $url['created_at'], $db_time_zone );
-            $created_at->setTimeZone( $user_timezone );
-            $url['created_at'] = $created_at->format( 'Y-m-d H:i:s' );
-
-            $url['hits'] = Url::find( $url['id'] )->urlHits()->count();
-            $urls_with_hits[] = $url;
-        }
+        $urls = $user
+            ->urls()
+            ->orderBy( 'created_at', 'desc' )
+            ->get()
+            ->toArray();
+        
+        $urls_with_hits = UrlHelper::changeTimeZone($urls);
 
         return View::make( 'links' )->with( 'urls', $urls_with_hits );
     }

@@ -1,86 +1,74 @@
 <?php
 
-class HomeController extends BaseController {
+class HomeController extends BaseController 
+{
+    const RECENT_URL_COUNT = 5;
 
-	/**
-	 * @summary Display the home page, as well as the new short url, if any.
-	 *
-	 * @return Response
-	 */
-	public function getIndex()
-	{
+    /**
+     * @summary Display the home page, as well as the new short url, if any.
+     *
+     * @return Response
+     */
+    public function getIndex()
+    {
         if ( Auth::check() ) {
             $user = User::find( Auth::user()->id );
-            $urls = $user->urls()->orderBy( 'created_at', 'desc' )->take(5)->get()->toArray();
-            $urls_with_hits = array();
 
-            $db_time_zone = new DateTimeZone( 'UTC' );
-            $user_timezone = new DateTimeZone( Auth::user()->timezone );
+            $urls = $user
+                ->urls()
+                ->orderBy( 'created_at', 'desc' )
+                ->take(self::RECENT_URL_COUNT)
+                ->get()
+                ->toArray();
 
-            foreach ( $urls as $url ) {
-                $created_at = new DateTime( $url['created_at'], $db_time_zone );
-                $created_at->setTimeZone( $user_timezone );
-                $url['created_at'] = $created_at->format( 'Y-m-d H:i:s' );
-
-                $url['hits'] = Url::find( $url['id'] )->urlHits()->count();
-                $urls_with_hits[] = $url;
-            }
+            $urls_with_hits = UrlHelper::changeTimeZone($urls);
 
             return View::make( 'home' )->with( 'urls', $urls_with_hits );
         }
 
-		return View::make( 'home' );
-	}
-
-	/**
-	 * @summary For a given long URL, create a short URL.
-	 *
-	 * @return void
-	 */
-	public function postIndex()
-	{
-		$long_url = Input::get( 'long_url' );
-		$new_url_id = Url::all()->count() + 1;
-		$short_url = base_convert( $new_url_id, 10, 36 );
-
-		$url = new Url;
-		$url->long_url = $long_url;
-		$url->short_url = $short_url;
-		$url->save();
-
-		if ( Auth::check() ) {
-          $user_url = new UrlUser;
-          $user_url->user_id = Auth::user()->id;
-          $user_url->url_id = $url->id;
-          $user_url->save();
-		}
-
-		return Redirect::to( '/' )->with( array(
-            'short_url' => Config::get( 'app.url_no_protocol' ).'/'.$short_url,
-            'long_url' => $long_url
-        ));
-	}
-
-	/**
-	 * @summary For a given short URL, redirect to the corresponding long URL.
-	 *
-	 * @param string $short_url The short URL from which the browser should redirect to original long URL.
-	 *
-	 * @return Response
-	 */
-	public function redirectUrl( $short_url )
-	{
-		$url = Url::where( 'short_url', '=', (int) $short_url )->firstOrFail();
-
-		$url_hit = new UrlHit;
-		$url_hit->url_id = $url->id;
-
-		if ( Request::header( 'Referer' ) ) {
-        $url_hit->referer = Request::header( 'Referer' );
+        return View::make( 'home' );
     }
 
-		$url_hit->save();
+    /**
+     * @summary For a given long URL, create a short URL.
+     *
+     * @return Response
+     */
+    public function postIndex()
+    {
+        $long_url = Input::get( 'long_url' );
+        $url = UrlHelper::createShortUrl($long_url);
 
-		return Redirect::to( $url['long_url'] );
-	}
+        if ( Auth::check() ) {
+            UrlHelper::assignUrlToUser( $url->id, Auth::user()->id );
+        }
+
+        return Redirect::to( '/' )->with( array(
+            'short_url' => Config::get( 'app.url_no_protocol' ) . '/' . $url->short_url,
+            'long_url' => $long_url
+        ));
+    }
+
+    /**
+     * @summary For a given short URL, redirect to the corresponding long URL.
+     *
+     * @param string $short_url The short URL from which the browser should redirect to original long URL.
+     *
+     * @return Response
+     */
+    public function redirectUrl( $short_url )
+    {
+        $url = Url::where( 'short_url', '=', (int) $short_url )->firstOrFail();
+
+        $url_hit = new UrlHit;
+        $url_hit->url_id = $url->id;
+
+        if ( Request::header( 'Referer' ) ) {
+            $url_hit->referer = Request::header( 'Referer' );
+        }
+
+        $url_hit->save();
+
+        return Redirect::to( $url['long_url'] );
+    }
 }

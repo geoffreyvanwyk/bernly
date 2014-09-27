@@ -53,7 +53,8 @@ class UserController extends BaseController
                   'email_error' => 'The email you entered is invalid. It should be similar to john@example.com',
                   'email' => $email,
                   'password' => $password,
-                  'confirm_password' => $confirm_password
+                  'confirm_password' => $confirm_password,
+                  'timezone' => $timezone
               ));
           }
 
@@ -63,7 +64,8 @@ class UserController extends BaseController
                   'password_error' => 'Password should be at least 10 characters long.',
                   'email' => $email,
                   'password' => $password,
-                  'confirm_password' => $confirm_password
+                  'confirm_password' => $confirm_password,
+                  'timezone' => $timezone
               ));
           }
 
@@ -73,7 +75,8 @@ class UserController extends BaseController
                   'confirm_password_error' => 'The passwords do not match.',
                   'email' => $email,
                   'password' => $password,
-                  'confirm_password' => $confirm_password
+                  'confirm_password' => $confirm_password,
+                  'timezone' => $timezone
               ));
           }
 

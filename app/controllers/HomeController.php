@@ -11,7 +11,7 @@ class HomeController extends BaseController
      */
     public function getIndex()
     {
-        if ( Auth::check() ) {
+        if ( UserHelper::isLoggedIn() ) {
             $user = User::find( Auth::user()->id );
 
             $urls = $user

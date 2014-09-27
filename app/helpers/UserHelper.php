@@ -41,4 +41,14 @@ class UserHelper
     {
         return $password === $confirm_password;
     }
+
+    /**
+     * @summary Returns true if the user is logged-in. 
+     *
+     * @return boolean
+     */
+    public static function isLoggedIn()
+    {
+        return Auth::check();
+    }
 }

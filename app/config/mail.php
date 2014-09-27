@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'support@bernly.com', 'name' => 'Bernly.com'),
+	'from' => array('address' => 'geoffrey.vanwyk@bernadine.biz', 'name' => 'Bernly.com'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'support@bernly.com',
+	'username' => 'geoffrey.vanwyk@bernadine.biz',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'kM8BNHk0K7mGSWiwQxxW',
+	'password' => 'wmTCWW&5$t6hIhVN$$1I',
 
 	/*
 	|--------------------------------------------------------------------------

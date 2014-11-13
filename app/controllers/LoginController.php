@@ -14,11 +14,12 @@ class LoginController extends BaseController
     
     public function postIn()
     {
-        $email = Input::get( 'email' );
-        $password = Input::get( 'password' );
-        $remember_me = Input::get( 'remember_me' );
+        $credentials = [
+            'email' => Input::get( 'email' ),
+            'password' => Input::get( 'password' )
+        ];
         
-        if (Auth::attempt( array( 'email' => $email, 'password' => $password ), $remember_me ) ) {
+        if (Auth::attempt( array( $credentials, Input::get( 'remember_me' ) ) ) {
             return Redirect::intended('/');
         }
         

@@ -1,10 +1,14 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
-	"license": "MIT",
+	"name": "Bernly.com",
+	"description": "A URL Shortener.",
+	"keywords": ["URL", "shortener", "bernly"],
+	"license": "GPLv3.0",
 	"require": {
-		"laravel/framework": "4.1.*"
+		"laravel/framework": "4.1.*",
+		"php": ">=5.3.0",
+		"ext-curl": "*",
+		"ext-json": "*",
+		"paypal/rest-api-sdk-php": "0.5"
 	},
 	"autoload": {
 		"classmap": [

@@ -11,12 +11,16 @@ class VerifyController extends BaseController
     {
         $token = Hash::make( Auth::user()->email );
     
-        Mail::send( array( 'text' => 'emails.verify' ), array( 'token' => $token ), function ( $message )
-        {
-            $message
-                ->to( Auth::user()->email )
-                ->subject( 'Email Verification' );
-        });
+        Mail::send( 
+            array( 'text' => 'emails.verify' ), 
+            array( 'token' => $token ), 
+            function ( $message )
+            {
+                $message
+                    ->to( Auth::user()->email )
+                    ->subject( 'Email Verification' );
+            }
+        );
         
         return Redirect::to( 'user/view' )->with( array( 
             'is_edited_email' => Session::get( 'is_edited_email' ),

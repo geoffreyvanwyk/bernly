@@ -1,6 +1,10 @@
 *.swp
 .DS_Store
 .directory
+/bootstrap/compiled.php
+composer.phar
+/vendor
+composer.lock
 .env.*.php
 .env.php
 /bootstrap/compiled.php

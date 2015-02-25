@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace Bernly\Services;
 
-use App\User;
+use Bernly\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

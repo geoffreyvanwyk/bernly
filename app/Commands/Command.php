@@ -1,4 +1,4 @@
-<?php namespace App\Commands;
+<?php namespace Bernly\Commands;
 
 abstract class Command {
 

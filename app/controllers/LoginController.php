@@ -19,7 +19,7 @@ class LoginController extends BaseController
             'password' => Input::get( 'password' )
         ];
         
-        if (Auth::attempt( array( $credentials, Input::get( 'remember_me' ) ) ) {
+        if (Auth::attempt( array( $credentials, Input::get( 'remember_me' ) ) ) ) {
             return Redirect::intended('/');
         }
         

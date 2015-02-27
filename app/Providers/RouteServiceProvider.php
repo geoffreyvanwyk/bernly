@@ -24,7 +24,10 @@ class RouteServiceProvider extends ServiceProvider {
 	{
 		parent::boot($router);
 
-		//
+	    $router->filter('auth', function () 
+        {
+            if (\Auth::guest()) return \Redirect::guest('log/in');  
+        });    
 	}
 
 	/**

@@ -1,6 +1,6 @@
-<?php namespace Bernly;
+<?php namespace Bernly\Models;
 
-class UrlUser extends Eloquent {
+class UrlUser extends \Eloquent {
 	/**
 	 * The database table used by the model.
 	 *

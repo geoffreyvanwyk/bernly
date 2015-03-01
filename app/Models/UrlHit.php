@@ -1,6 +1,6 @@
-<?php namespace Bernly;
+<?php namespace Bernly\Models;
 
-class UrlHit extends Eloquent 
+class UrlHit extends \Eloquent 
 {
     public function urls()
     {

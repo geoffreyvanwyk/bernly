@@ -1,6 +1,6 @@
-<?php namespace Bernly;
+<?php namespace Bernly\Models;
 
-class Url extends Eloquent
+class Url extends \Eloquent
 {
     /**
      * @summary One-to-Many relationship between a Url and UrlHits: A Url is hit many times.

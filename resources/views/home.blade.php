@@ -5,6 +5,8 @@
 <div class="container">
     <div class="jumbotron">
         <form action="." method="post">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
             <div class="input-group" style="font-size: 14px !important">
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-link"></span>

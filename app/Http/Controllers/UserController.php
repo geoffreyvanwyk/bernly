@@ -1,9 +1,11 @@
 <?php namespace Bernly\Http\Controllers;
 
-use \Auth;
-use \Input;
-use \Redirect;
-use \View;
+use Auth;
+use Input;
+use Redirect;
+use View;
+
+use Bernly\Helpers\UserHelper;
 
 class UserController extends Controller
 {

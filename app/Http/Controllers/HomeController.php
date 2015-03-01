@@ -1,10 +1,7 @@
 <?php namespace Bernly\Http\Controllers;
 
-use \Auth;
-use \Input;
-use \Redirect;
-use \Request;
-use \View;
+use Auth, Config, Input, Redirect, Request, View;
+use Bernly\Helpers\UrlHelper;
 
 class HomeController extends Controller 
 {

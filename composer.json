@@ -14,7 +14,8 @@
     "autoload": {
         "classmap": [
             "database",
-            "app/Models"
+            "app/Models",
+            "app/Helpers"
         ],
         "psr-4": {
             "Bernly\\": "app/"

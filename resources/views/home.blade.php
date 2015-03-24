@@ -17,6 +17,7 @@
                     type="url" 
                     name="long_url" 
                     placeholder="Paste long link here"
+                    required
                 >
                 
                 <span class="input-group-btn">

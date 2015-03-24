@@ -1,11 +1,7 @@
 <?php namespace Bernly\Http\Controllers;
 
-use Auth;
-use Input;
-use Redirect;
-use View;
-
-use Bernly\Helpers\UserHelper;
+use Auth, Hash, Input, Redirect, View;
+use Bernly\Helpers\UserHelper, Bernly\Models\User;
 
 class UserController extends Controller
 {
@@ -37,7 +33,7 @@ class UserController extends Controller
      */
     public function getAdd()
     {
-        $timezones = DateTimeZone::listIdentifiers( DateTimeZone::ALL );
+        $timezones = \DateTimeZone::listIdentifiers( \DateTimeZone::ALL );
 
         return View::make( 'user.add' )->with( 'timezones', $timezones );
     }
@@ -99,7 +95,7 @@ class UserController extends Controller
 
           $user = new User;
           $user->email = $email;
-          $user->password = Hash::make( $password );
+          $user->password = \Hash::make( $password );
           $user->timezone = $timezone;
           $user->setRememberToken( 'remember' );
           $user->save();
@@ -196,7 +192,7 @@ class UserController extends Controller
         }
 
         $user = User::find( Auth::user()->id );
-        $user->password = Hash::make( $password );
+        $user->password = \Hash::make( $password );
         $user->save();
 
         return Redirect::to('/user/view')->with( 'is_edited_password', true );
@@ -209,7 +205,7 @@ class UserController extends Controller
      */
     public function getEditTimezone()
     {
-        $timezones = DateTimeZone::listIdentifiers( DateTimeZone::ALL );
+        $timezones = \DateTimeZone::listIdentifiers( \DateTimeZone::ALL );
         return View::make( 'user.edit-timezone' )->with( 'timezones', $timezones );
     }
 
@@ -282,8 +278,8 @@ class UserController extends Controller
         $url_hits = $url_object->urlHits;
         $url = $url_object->toArray();
 
-        $db_time_zone = new DateTimeZone( 'UTC' );
-        $user_timezone = new DateTimeZone( Auth::user()->timezone );
+        $db_time_zone = new \DateTimeZone( 'UTC' );
+        $user_timezone = new \DateTimeZone( Auth::user()->timezone );
 
         $created_at = new DateTime( $url['created_at'], $db_time_zone );
         $created_at->setTimeZone( $user_timezone );

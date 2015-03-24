@@ -1,10 +1,6 @@
 <?php namespace Bernly\Http\Controllers;
 
-use \Auth;
-use \Hash;
-use \Mail;
-use \Redirect;
-use \View;
+use Bernly\Models\User;
 
 class VerifyController extends Controller
 {
@@ -15,32 +11,32 @@ class VerifyController extends Controller
 
     public function getIndex()
     {
-        $token = Hash::make( Auth::user()->email );
+        $token = \Hash::make( \Auth::user()->email );
     
-        Mail::send( 
+        \Mail::send( 
             array( 'text' => 'emails.verify' ), 
             array( 'token' => $token ), 
             function ( $message )
             {
                 $message
-                    ->to( Auth::user()->email )
+                    ->to( \Auth::user()->email )
                     ->subject( 'Email Verification' );
             }
         );
         
-        return Redirect::to( 'user/view' )->with( array( 
-            'is_edited_email' => Session::get( 'is_edited_email' ),
-            'is_resent' => (bool) Input::get( 'resent' )
+        return \Redirect::to( 'user/view' )->with( array( 
+            'is_edited_email' => \Session::get( 'is_edited_email' ),
+            'is_resent' => (bool) \Input::get( 'resent' )
         ));
     }
     
     public function getEmail()
     {
-        $email = Input::get( 'address' );
-        $token = Input::get( 'token' );
+        $email = \Input::get( 'address' );
+        $token = \Input::get( 'token' );
         $success = false;
         
-        if ( Hash::check( $email, $token ) ) {
+        if ( \Hash::check( $email, $token ) ) {
         
             $user = User::where( 'email', '=', $email )->firstOrFail();
             $user->verified = true;
@@ -50,7 +46,7 @@ class VerifyController extends Controller
             
         }
         
-       return View::make( 'email-verification' )->with( 'success',  $success );
+       return \View::make( 'email-verification' )->with( 'success',  $success );
     }
 }
 

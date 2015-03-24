@@ -7,6 +7,7 @@
         <h1 class="page-header">Register</h1>
     
         <form action="/user/add" method="post" role="form">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
         
             <div class="form-group {{ Session::get( 'email_class' ) }}">
                 <label for="email" class="control-label">Email address</label>

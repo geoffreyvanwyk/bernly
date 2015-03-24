@@ -26,7 +26,8 @@ return [
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => env('APP_URL_NO_PROTOCOL', 'http://localhost'),
+    'url_no_protocol' => env('APP_URL_NO_PROTOCOL', 'localhost'),
 
 	/*
 	|--------------------------------------------------------------------------

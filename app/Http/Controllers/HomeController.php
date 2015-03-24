@@ -1,7 +1,7 @@
 <?php namespace Bernly\Http\Controllers;
 
 use Auth, Config, Input, Redirect, Request, View;
-use Bernly\Helpers\UrlHelper;
+use Bernly\Helpers\UrlHelper, Bernly\Models\Url, Bernly\Models\UrlHit;
 
 class HomeController extends Controller 
 {
@@ -61,7 +61,7 @@ class HomeController extends Controller
      */
     public function redirectUrl( $short_url )
     {
-        $url = Url::where( 'short_url', '=', (int) $short_url )->firstOrFail();
+        $url = Url::where( 'short_url', '=', $short_url )->firstOrFail();
 
         $url_hit = new UrlHit;
         $url_hit->url_id = $url->id;

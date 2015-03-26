@@ -75,7 +75,7 @@
 <div class="container">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Your Recent Links with Clicks</h3>
+            <h3 class="panel-title">Your Recent Links</h3>
         </div>
         
         <table class="table table-condensed">

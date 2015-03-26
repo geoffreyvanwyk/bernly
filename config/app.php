@@ -26,8 +26,8 @@ return [
 	|
 	*/
 
-	'url' => env('APP_URL_NO_PROTOCOL', 'http://localhost'),
-    'url_no_protocol' => env('APP_URL_NO_PROTOCOL', 'localhost'),
+	'url' => env('APP_URL', 'http://bernly.com'),
+    'url_no_protocol' => env('APP_URL_NO_PROTOCOL', 'bernly.com'),
 
 	/*
 	|--------------------------------------------------------------------------

@@ -92,6 +92,6 @@ class User extends \Eloquent implements AuthenticatableContract, CanResetPasswor
 	 */
     public function urls() 
     {
-        return $this->belongsToMany( 'Url' );
+        return $this->belongsToMany( 'Bernly\Models\Url' );
     }
 }

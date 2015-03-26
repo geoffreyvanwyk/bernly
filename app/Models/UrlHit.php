@@ -4,6 +4,6 @@ class UrlHit extends \Eloquent
 {
     public function urls()
     {
-        return $this->belongsTo( 'URL' );
+        return $this->belongsTo( 'Bernly\Models\Url' );
     }
 }

@@ -7,7 +7,7 @@ class Url extends \Eloquent
      */
     public function urlHits() 
     {
-        return $this->hasMany( 'UrlHit' );
+        return $this->hasMany( 'Bernly\Models\UrlHit' );
     }
     
     /**
@@ -17,6 +17,6 @@ class Url extends \Eloquent
      */
     public function users() 
     {
-        return $this->belongsToMany( 'User' );
+        return $this->belongsToMany( 'Bernly\Models\User' );
     }
 }

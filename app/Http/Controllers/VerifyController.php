@@ -11,7 +11,7 @@ class VerifyController extends Controller
 
     public function getIndex()
     {
-        $token = \Hash::make( \Auth::user()->email );
+        $token = \Hash::make( \Auth::user()->email . \Config::get('app.key') );
     
         \Mail::send( 
             array( 'text' => 'emails.verify' ), 
@@ -32,21 +32,18 @@ class VerifyController extends Controller
     
     public function getEmail()
     {
-        $email = \Input::get( 'address' );
+        $email = rawurldecode( \Input::get( 'address' ) );
         $token = \Input::get( 'token' );
-        $success = false;
+
+        $user = User::where( 'email', '=', $email )->first();
+        $verified = $user && \Hash::check( $email . \Config::get( 'app.key' ), $token );
         
-        if ( \Hash::check( $email, $token ) ) {
-        
-            $user = User::where( 'email', '=', $email )->firstOrFail();
+        if ( $verified ) {
             $user->verified = true;
             $user->save();
-            
-            $success = true;
-            
         }
-        
-       return \View::make( 'email-verification' )->with( 'success',  $success );
+    
+       return \View::make( 'email-verification' )->with( 'success',  $verified );
     }
 }
 

@@ -15,7 +15,7 @@
     @else
     
         <div class="alert alert-danger">
-            <strong>Error!</strong> The email verification token was incorrect. <a href="/verify">Please request another email verification message.</a>
+            <strong>Error!</strong> The email verification failed. 
         </div>
     
     @endif

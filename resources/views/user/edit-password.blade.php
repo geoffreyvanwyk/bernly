@@ -7,7 +7,8 @@
         <h1 class="page-header">Edit Password</h1>
     
         <form action="/user/edit-password" method="post" role="form">
-        
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
             <div class="form-group {{ Session::get( 'password_class' ) }}">
                 <label for="password" class="control-label">New Password</label>
                 <input 

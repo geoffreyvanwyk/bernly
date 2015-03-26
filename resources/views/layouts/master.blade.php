@@ -90,7 +90,7 @@
             </div>
         </div>
 
-		<script src="{{ Illuminate\Support\Facades\URL::asset( 'static/bower_components/jquery/jquery.min.js' ) }}"></script>
+		<script src="{{ Illuminate\Support\Facades\URL::asset( 'static/bower_components/jquery/dist/jquery.min.js' ) }}"></script>
 		<script src="{{ Illuminate\Support\Facades\URL::asset( 'static/bower_components/bootstrap/dist/js/bootstrap.min.js' ) }}"></script>
 
 		@yield( 'scripts' )

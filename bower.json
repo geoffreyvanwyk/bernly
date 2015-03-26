@@ -2,15 +2,18 @@
   "name": "bernly",
   "version": "1.0.0",
   "authors": [
-    "Geoffrey van Wyk <geoffrey.vanwyk@bernadine.biz>"
+    "Geoffrey van Wyk <geoffrey@vanwyk.biz>"
   ],
-  "description": "A URL shortener.",
+  "description": "A link shortener.",
   "main": "index.php",
   "keywords": [
     "URL",
     "shortener",
     "shorten",
-    "web address"
+    "web address",
+    "link",
+    "url shortener",
+    "link shortener"
   ],
   "license": "GPLv3.0",
   "homepage": "bernly.com",
@@ -22,6 +25,6 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.0.3"
+    "bootstrap": "3.*"
   }
 }

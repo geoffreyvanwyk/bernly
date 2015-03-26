@@ -15,7 +15,11 @@
     @endif
         
 		<form action="/log/in" method="post" role="form">
-		
+            <input 
+                type="hidden" 
+                name="_token" value="{{ csrf_token() }}" 
+            >
+
 			<div class="form-group">
 				<label for="email" class="control-label">Email address</label>
 				<input 

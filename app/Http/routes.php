@@ -11,13 +11,13 @@
 |
 */
 
-/* This route must be first; otherwise, a 'Controller method not found.' exception will be thrown. */
-Route::get( '{short_url}', 'HomeController@redirectUrl' )->where( 'short_url', '[^/]' );
+Route::get( '{short_url}', 'HomeController@redirectUrl' );
 
-Route::controller( 'user', 'UserController' );
-Route::controller( 'verify', 'VerifyController' );
-Route::controller( 'log', 'LoginController' );
-Route::controller( 'password', 'RemindersController' );
+Route::controllers([ 
+    'user' => 'UserController', 
+    'verify' => 'VerifyController', 
+    'log' => 'LoginController',
+    'password' => 'RemindersController',
+    '/' => 'HomeController'
+]);
 
-/* This route must be last; otherwise, a 'Controller method not found.' exception will be thrown. */
-Route::controller( '/', 'HomeController' );

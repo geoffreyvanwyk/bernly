@@ -7,8 +7,6 @@ use Bernly\Helpers\UrlHelper,
 
 class HomeController extends Controller 
 {
-    const RECENT_URL_COUNT = 5;
-
     /**
      * @summary Display the home page, as well as the new short url, if any.
      *
@@ -20,7 +18,7 @@ class HomeController extends Controller
             $urls = \Auth::user() 
                 ->urls()
                 ->orderBy( 'created_at', 'desc' )
-                ->take(self::RECENT_URL_COUNT)
+                ->take(Url::RECENT_URL_COUNT)
                 ->get()
                 ->toArray();
 
@@ -35,21 +33,24 @@ class HomeController extends Controller
     /**
      * @summary For a given long URL, create a short URL.
      *
+     * @description Responds to HTTP POST /. If the user is logged-in, assign the URL to the user.
+     *
      * @return Response
      */
     public function postIndex()
     {
         $long_url = \Input::get( 'long_url' );
         $url = UrlHelper::createShortUrl( $long_url );
+        $short_url = \Config::get( 'app.url_no_protocol' ) . '/' . $url->short_url;
 
         if ( \Auth::check() ) {
-            UrlHelper::assignUrlToUser( $url->id, \Auth::user()->id );
+            UrlHelper::assignUrlToUser( $url->id );
         }
 
-        return \Redirect::to( '/' )->with( array(
-            'short_url' => \Config::get( 'app.url_no_protocol' ) . '/' . $url->short_url,
+        return \Redirect::to( '/' )->with([ 
+            'short_url' => $short_url,
             'long_url' => $long_url
-        ));
+        ]);
     }
 
     /**
@@ -61,7 +62,7 @@ class HomeController extends Controller
      */
     public function redirectUrl( $short_url )
     {
-        $url = Url::where( 'short_url', '=', (int) $short_url )->firstOrFail();
+        $url = Url::where( 'short_url', '=', $short_url )->firstOrFail();
 
         $url_hit = new UrlHit;
         $url_hit->url_id = $url->id;

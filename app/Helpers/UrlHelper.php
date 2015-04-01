@@ -34,12 +34,9 @@ class UrlHelper
 
     public static function createShortUrl($long_url)
     {
-        $new_url_id = Url::all()->count() + 1;
-        $short_url = base_convert( $new_url_id, 10, 36 );
-
         $url = new Url;
         $url->long_url = $long_url;
-        $url->short_url = $short_url;
+        $url->shortenUrl();
         $url->save();
 
         return $url;

@@ -7,15 +7,18 @@ class UrlHelper
 {
     public static function assignUrlToUser($url_id)
     {
-        $user_url = new UrlUser;
-        $user_url->user_id = \Auth::user()->id;
-        $user_url->url_id = $url_id;
-        $user_url->save();
+        try {
+            $user_url = new UrlUser;
+            $user_url->user_id = \Auth::user()->id;
+            $user_url->url_id = $url_id;
+            $user_url->save();
+        } catch (\Exception $exception) {
+        }
     }
 
     public static function changeTimeZone($urls)
     {
-        $urls_with_hits = array();
+        $urls_with_hits = [];
 
         $db_time_zone = new \DateTimeZone( 'UTC' );
         $user_timezone = new \DateTimeZone( \Auth::user()->timezone );

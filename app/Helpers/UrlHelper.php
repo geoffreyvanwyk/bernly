@@ -34,8 +34,16 @@ class UrlHelper
 
     public static function createShortUrl($long_url)
     {
+        $short_url = Url::where('long_url', '=', $long_url)->pluck('short_url');
+
         $url = new Url;
         $url->long_url = $long_url;
+
+        if (! is_null($short_url)) {
+            $url->short_url = $short_url;    
+            return $url;
+        }
+
         $url->shortenUrl();
         $url->save();
 

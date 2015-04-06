@@ -11,8 +11,6 @@
 |
 */
 
-Route::get( '{short_url}', 'HomeController@redirectUrl' );
-
 Route::controllers([ 
     'user' => 'UserController', 
     'verify' => 'VerifyController', 
@@ -20,4 +18,6 @@ Route::controllers([
     'password' => 'RemindersController',
     '/' => 'HomeController'
 ]);
+
+Route::get( '{short_url}', 'HomeController@redirectUrl' );
 

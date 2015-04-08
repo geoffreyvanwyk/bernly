@@ -43,7 +43,7 @@
         <strong>Warning!</strong> Your email address has not been verified yet. 
         <br>
         An email message has been sent to you. Please click the verification link in the message to verify 
-        your email address. 
+        your email address. Without email verification, URLs you shorten cannot be associated with your account, which means you will lose the benefit of registration.
         <br>
         If you have not received the email, <a href="/verify?resent=true">request that it be resent.</a>
     </div>

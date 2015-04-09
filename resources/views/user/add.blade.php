@@ -63,7 +63,10 @@
                 <p class="help-block">{{ Session::get( 'timezone_error' ) }}</p>
             </div>
 
-             <div id="recaptcha-tag"></div><br>
+            <div class="form-group {{ Session::get( 'recaptcha_class' ) }}">
+                <div id="recaptcha-tag" ></div>
+                <p class="help-block">{{ Session::get( 'recaptcha_error' ) }}</p>
+            </div>
 
             <button class="btn btn-primary" disabled>Submit</button>
             
@@ -79,7 +82,7 @@
     <script>
         var recaptcha_site_key = "{{ env('RECAPTCHA_SITE_KEY') }}";
     </script>
-    <script src="{{ Illuminate\Support\Facades\URL::asset( 'static/js/recaptcha_response.js' ) }}"></script>
+    <script src="{{ Illuminate\Support\Facades\URL::asset( 'static/js/recaptcha.js' ) }}"></script>
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
 @endsection

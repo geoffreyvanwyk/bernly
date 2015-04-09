@@ -5,6 +5,8 @@ use Bernly\Helpers\UrlHelper,
     Bernly\Models\Url,
     Bernly\Models\User;
 
+use ReCaptcha\ReCaptcha;
+
 class UserController extends Controller
 {
     /**
@@ -47,64 +49,79 @@ class UserController extends Controller
      */
     public function postAdd()
     {
-          $email = \Input::get( 'email' );
-          $password = \Input::get( 'password' );
-          $confirm_password = \Input::get( 'confirm_password' );
-          $timezone = \Input::get( 'timezone' );
+        $email = \Input::get( 'email' );
+        $password = \Input::get( 'password' );
+        $confirm_password = \Input::get( 'confirm_password' );
+        $timezone = \Input::get( 'timezone' );
+        $recaptcha_response = \Input::get('g-recaptcha-response');
 
-          if ( ! UserHelper::isEmailValid( $email ) ) {
-              return \Redirect::to( '/user/add' )->with( array(
-                  'email_class' => 'has-error',
-                  'email_error' => 'The email you entered is invalid. It should be similar to john@example.com',
-                  'email' => $email,
-                  'password' => $password,
-                  'confirm_password' => $confirm_password,
-                  'timezone' => $timezone
-              ));
-          }
+        $recaptcha = new ReCaptcha(env('RECAPTCHA_SECRET_KEY'));
+        $recaptcha_result = $recaptcha->verify($recaptcha_response);
 
-          if ( ! UserHelper::isPasswordValid( $password ) ) {
-              return \Redirect::to( '/user/add' )->with( array(
-                  'password_class' => 'has-error',
-                  'password_error' => 'Password should be at least 10 characters long.',
-                  'email' => $email,
-                  'password' => $password,
-                  'confirm_password' => $confirm_password,
-                  'timezone' => $timezone
-              ));
-          }
+        if (! UserHelper::isEmailValid($email)) {
+            return \Redirect::to('/user/add')->with([ 
+                'email_class' => 'has-error',
+                'email_error' => 'The email you entered is invalid. It should be similar to john@example.com',
+                'email' => $email,
+                'password' => $password,
+                'confirm_password' => $confirm_password,
+                'timezone' => $timezone
+            ]);
+        }
 
-          if ( ! UserHelper::isPasswordConfirmed( $password, $confirm_password ) ) {
-              return \Redirect::to( '/user/add' )->with( array(
-                  'confirm_password_class' => 'has-error',
-                  'confirm_password_error' => 'The passwords do not match.',
-                  'email' => $email,
-                  'password' => $password,
-                  'confirm_password' => $confirm_password,
-                  'timezone' => $timezone
-              ));
-          }
+        if (! UserHelper::isPasswordValid($password)) {
+            return \Redirect::to('/user/add')->with([ 
+              'password_class' => 'has-error',
+              'password_error' => 'Password should be at least 10 characters long.',
+              'email' => $email,
+              'password' => $password,
+              'confirm_password' => $confirm_password,
+              'timezone' => $timezone
+            ]);
+        }
 
-          if ( $timezone === 'Please select ...' ) {
-              return \Redirect::to( '/user/add' )->with( array(
-                  'timezone_class' => 'has-error',
-                  'timezone_error' => 'A timezone is required.',
-                  'email' => $email,
-                  'password' => $password,
-                  'confirm_password' => $confirm_password
-              ));
-          }
+        if (! UserHelper::isPasswordConfirmed($password, $confirm_password)) {
+            return \Redirect::to('/user/add')->with([ 
+                'confirm_password_class' => 'has-error',
+                'confirm_password_error' => 'The passwords do not match.',
+                'email' => $email,
+                'password' => $password,
+                'confirm_password' => $confirm_password,
+                'timezone' => $timezone
+            ]);
+        }
 
-          $user = new User;
-          $user->email = $email;
-          $user->password = \Hash::make( $password );
-          $user->timezone = $timezone;
-          $user->setRememberToken( 'remember' );
-          $user->save();
+        if ($timezone === 'Please select ...') {
+            return \Redirect::to('/user/add')->with([
+                'timezone_class' => 'has-error',
+                'timezone_error' => 'A timezone is required.',
+                'email' => $email,
+                'password' => $password,
+                'confirm_password' => $confirm_password
+            ]);
+        }
 
-          \Auth::login( $user );
+        if (! $recaptcha_result->isSuccess()) {
+            return \Redirect::to('user/add')->with([
+                'recaptcha_class' => 'has-error',
+                'recaptcha_error' => 'Please complete the reCAPTCHA.',
+                'email' => $email,
+                'password' => $password,
+                'confirm_password' => $confirm_password,
+                'timezone' => $timezone
+            ]);
+        }
 
-          return \Redirect::to( '/verify' );
+        $user = new User;
+        $user->email = $email;
+        $user->password = \Hash::make( $password );
+        $user->timezone = $timezone;
+        $user->setRememberToken( 'remember' );
+        $user->save();
+
+        \Auth::login( $user );
+
+        return \Redirect::to( '/verify' );
     }
 
     /**

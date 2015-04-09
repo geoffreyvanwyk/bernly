@@ -6,6 +6,7 @@ use Bernly\Helpers\UrlHelper,
     Bernly\Models\User;
 
 use ReCaptcha\ReCaptcha;
+use \Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
@@ -117,7 +118,19 @@ class UserController extends Controller
         $user->password = \Hash::make( $password );
         $user->timezone = $timezone;
         $user->setRememberToken( 'remember' );
-        $user->save();
+
+        try {
+            $user->save();
+        } catch (QueryException $exception) {
+            return \Redirect::to('/user/add')->with([ 
+                'email_class' => 'has-error',
+                'email_error' => 'The email you entered has already been used.',
+                'email' => $email,
+                'password' => $password,
+                'confirm_password' => $confirm_password,
+                'timezone' => $timezone
+            ]);
+        }
 
         \Auth::login( $user );
 

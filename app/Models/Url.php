@@ -1,26 +1,26 @@
 <?php namespace Bernly\Models;
 
-class Url extends \Eloquent
+class Url extends \Model
 {
     const RECENT_URL_COUNT = 5;
-    const SHORT_URL_CHARACTER_SET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const SHORT_URL_CHARACTER_SET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     /**
      * @summary One-to-Many relationship between a Url and UrlHits: A Url is hit many times.
      */
     public function urlHits() 
     {
-        return $this->hasMany( 'Bernly\Models\UrlHit' );
+        return $this->hasMany('Bernly\Models\UrlHit');
     }
     
     /**
-     * @summary Many-to-One relationship between Urls and a User: Many Urls are shortened by only one User. 
-     * It is coded here as Many-to-Many, because it is actually Many-to-One-or-Zero, and exists via an 
-     * intermediate database table.
+     * @summary Many-to-One relationship between Urls and a User. 
+     * @description Many Urls are shortened by only one User. It is coded here as Many-to-Many, because it is actually 
+     * Many-to-One-or-Zero, and exists via an intermediate database table.
      */
     public function users() 
     {
-        return $this->belongsToMany( 'Bernly\Models\User' );
+        return $this->belongsToMany('Bernly\Models\User');
     }
 
     /**
@@ -37,7 +37,7 @@ class Url extends \Eloquent
         $counter = $new_url_id;
         while ($counter > 0) {
             $short_url = substr(self::SHORT_URL_CHARACTER_SET, ($counter % $character_count), 1) . $short_url;
-            $counter = floor($counter/$character_count);
+            $counter = floor($counter / $character_count);
         }
 
         $this->short_url = $short_url;

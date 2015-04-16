@@ -11,13 +11,13 @@
 |
 */
 
-Route::controllers([ 
-    'user' => 'UserController', 
-    'verify' => 'VerifyController', 
+Route::controllers([
+    'user' => 'UserController',
+    'verify' => 'VerifyController',
     'log' => 'LoginController',
     'password' => 'RemindersController'
 ]);
 
-Route::get('{short_url}', 'HomeController@redirectUrl')->where('short_url', '[^/]');
-Route::controller('/', 'HomeController');
+Route::get('/{short_url?}', 'HomeController@getIndex');
+Route::post('/', 'HomeController@postIndex');
 

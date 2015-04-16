@@ -1,21 +1,25 @@
 <?php namespace Bernly\Http\Controllers;
 
-use Bernly\Helpers\UrlHelper, 
-    Bernly\Models\Url, 
-    Bernly\Models\UrlHit, 
+use Bernly\Helpers\UrlHelper,
+    Bernly\Models\Url,
+    Bernly\Models\UrlHit,
     Bernly\Models\User;
 
-class HomeController extends Controller 
+class HomeController extends Controller
 {
     /**
      * @summary Display the home page, as well as the new short url, if any.
      *
      * @return Response
      */
-    public function getIndex()
+    public function getIndex($short_url = '')
     {
+        if ($short_url) {
+            return $this->redirectUrl($short_url);
+        }
+
         if ( \Auth::check() ) {
-            $urls = \Auth::user() 
+            $urls = \Auth::user()
                 ->urls()
                 ->orderBy( 'created_at', 'desc' )
                 ->take(Url::RECENT_URL_COUNT)
@@ -47,7 +51,7 @@ class HomeController extends Controller
             UrlHelper::assignUrlToUser( $url->id );
         }
 
-        return \Redirect::to( '/' )->with([ 
+        return \Redirect::to( '/' )->with([
             'short_url' => $short_url,
             'long_url' => $long_url
         ]);

@@ -222,30 +222,19 @@
                     >
                         <div
                             class="jumbotron"
-                            style="background: #5cb85c;"
                         >
-                            <h1
-                                class="text-center"
-                                style="color: white"
-                            >$10
-                            </h2>
-                            <h3
-                                class="text-center"
-                                style="color: white"
-                            >per month
-                            </h3>
+                            <p>
+                                <a
+                                    class="btn btn-primary btn-lg"
+                                    href="/user/add"
+                                    role="button"
+                                >Register Now &raquo;
+                                </a>
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <p>
-                    <a
-                        class="btn btn-primary btn-lg"
-                        href="/user/add"
-                        role="button"
-                    >Register Now &raquo;
-                    </a>
-                </p>
             </div>
         </div>
 

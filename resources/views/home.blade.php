@@ -158,7 +158,7 @@
 
                         <tr>
                             <td>{{ $url['long_url'] }}</td>
-                            <td>{{ Config::get( 'app.url_no_protocol' ) }}/{{ $url['short_url'] }}</td>
+                            <td>{{ Config::get( 'app.url_short' ) }}/{{ $url['short_url'] }}</td>
                             <td>{{ $url['created_at'] }}</td>
                             <td
                                 class="text-center"

@@ -66,7 +66,11 @@ class HomeController extends Controller
      */
     public function redirectUrl( $short_url )
     {
-        $url = Url::where( 'short_url', '=', $short_url )->firstOrFail();
+        try {
+            $url = Url::where( 'short_url', '=', $short_url )->firstOrFail();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
+            abort(404);
+        }
 
         $url_hit = new UrlHit;
         $url_hit->url_id = $url->id;

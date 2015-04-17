@@ -1,6 +1,6 @@
 <?php namespace Bernly\Models;
 
-class Url extends \Model
+class Url extends \Eloquent
 {
     const RECENT_URL_COUNT = 5;
     const SHORT_URL_CHARACTER_SET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -8,17 +8,17 @@ class Url extends \Model
     /**
      * @summary One-to-Many relationship between a Url and UrlHits: A Url is hit many times.
      */
-    public function urlHits() 
+    public function urlHits()
     {
         return $this->hasMany('Bernly\Models\UrlHit');
     }
-    
+
     /**
-     * @summary Many-to-One relationship between Urls and a User. 
-     * @description Many Urls are shortened by only one User. It is coded here as Many-to-Many, because it is actually 
+     * @summary Many-to-One relationship between Urls and a User.
+     * @description Many Urls are shortened by only one User. It is coded here as Many-to-Many, because it is actually
      * Many-to-One-or-Zero, and exists via an intermediate database table.
      */
-    public function users() 
+    public function users()
     {
         return $this->belongsToMany('Bernly\Models\User');
     }

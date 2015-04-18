@@ -112,18 +112,25 @@
 
     @endif
 
-    <div class="bernly-googleads">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Banner Ad -->
+    <div
+        class="container"
+    >
+        <div
+            class="bernly-googleads"
+        >
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- Bernly Banner Ad -->
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-0729717881538218"
-                 data-ad-slot="5761565990"
+                 data-ad-slot="5385169198"
                  data-ad-format="auto"></ins>
-        <script>
+            <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+            </script>
+        </div>
     </div>
+    <br>
 
     @if ( ! empty( $urls ) )
 

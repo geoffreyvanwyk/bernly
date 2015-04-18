@@ -17,7 +17,7 @@
             <label class="control-label col-sm-2" for="short_link">Short Link</label>
             <div class="col-sm-10">
                 <p class="form-control-static" id="short_link">
-                    {{ Config::get( 'app.url_short' ) }}/{{ $url['short_url'] }}
+                    {{ env( 'APP_URL_SHORT' ) }}/{{ $url['short_url'] }}
                 </p>
             </div>
         </div>

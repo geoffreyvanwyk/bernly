@@ -45,7 +45,7 @@ class HomeController extends Controller
     {
         $long_url = \Input::get( 'long_url' );
         $url = UrlHelper::createShortUrl( $long_url );
-        $short_url = \Config::get( 'app.url_no_protocol' ) . '/' . $url->short_url;
+        $short_url = \Config::get( 'app.url_short' ) . '/' . $url->short_url;
 
         if (\Auth::check() && \Auth::user()->verified) {
             UrlHelper::assignUrlToUser( $url->id );

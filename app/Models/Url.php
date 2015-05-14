@@ -4,6 +4,9 @@ class Url extends \Eloquent
 {
     const RECENT_URL_COUNT = 5;
     const SHORT_URL_CHARACTER_SET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const VALIDATION_RULES = [
+        'long_url' => 'required|url'
+    ];
 
     /**
      * @summary One-to-Many relationship between a Url and UrlHits: A Url is hit many times.

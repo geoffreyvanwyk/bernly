@@ -23,6 +23,12 @@ class User extends \Eloquent implements AuthenticatableContract, CanResetPasswor
      */
     protected $hidden = array('password');
 
+    public static $validation_rules = [
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:10|confirmed',
+        'timezone' => 'required'
+    ];
+
     /**
      * Get the unique identifier for the user.
      *

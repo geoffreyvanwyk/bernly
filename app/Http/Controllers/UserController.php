@@ -88,7 +88,7 @@ class UserController extends Controller
      */
     public function getView()
     {
-          return view('users.view');
+        return view('users.view');
     }
 
     /**
@@ -107,17 +107,9 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function postEditEmail()
+    public function postEditEmail(StoreUser $request)
     {
         $email = \Request::input( 'email' );
-
-        if ( ! UserHelper::isEmailValid( $email ) ) {
-            return redirect('/user/edit-email')->with( array(
-                'email_class' => 'has-error',
-                'email_error' => 'The email you entered is invalid. It should be similar to john@example.com',
-                'email' => $email
-            ));
-        }
 
         $user = User::find( \Auth::user()->id );
         $user->email = $email;
@@ -143,29 +135,10 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function postEditPassword()
+    public function postEditPassword(StoreUser $request)
     {
         $password = \Request::input( 'password' );
         $confirm_password = \Request::input( 'confirm_password' );
-
-        if ( ! UserHelper::isPasswordValid( $password ) ) {
-            return redirect( '/user/edit-password' )->with( array(
-                'password_class' => 'has-error',
-                'password_error' => 'Password should be at least 10 characters long.',
-                'email' => $email,
-                'password' => $password,
-                'confirm_password' => $confirm_password
-            ));
-        }
-
-        if ( ! UserHelper::isPasswordConfirmed( $password, $confirm_password ) ) {
-            return redirect( '/user/edit-password' )->with( array(
-                'confirm_password_class' => 'has-error',
-                'confirm_password_error' => 'The passwords do not match.',
-                'password' => $password,
-                'confirm_password' => $confirm_password
-            ));
-        }
 
         $user = User::find( \Auth::user()->id );
         $user->password = \Hash::make( $password );
@@ -181,8 +154,7 @@ class UserController extends Controller
      */
     public function getEditTimezone()
     {
-        $timezones = \DateTimeZone::listIdentifiers( \DateTimeZone::ALL );
-        return view( 'user.edit-timezone' )->with( 'timezones', $timezones );
+        return view('users.edit-timezone')->withTimezones(\DateTimeZone::listIdentifiers(\DateTimeZone::ALL));
     }
 
     /**
@@ -191,16 +163,9 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function postEditTimezone()
+    public function postEditTimezone(StoreUser $request)
     {
         $timezone = \Request::input( 'timezone' );
-
-        if ( $timezone === 'Please select ...' ) {
-            return redirect( '/user/edit-timezone' )->with( array(
-                'timezone_class' => 'has-error',
-                'timezone_error' => 'A timezone is required.'
-            ));
-        }
 
         $user = \Auth::user();
         $user->timezone = $timezone;

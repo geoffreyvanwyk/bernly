@@ -1,40 +1,50 @@
-@extends( 'layouts.master' )
+@extends('layouts.master')
 
-@section( 'content' )
+@section('content')
 
     <div class="container">
-    
         <h1 class="page-header">Edit Password</h1>
-    
+
         <form action="/user/edit-password" method="post" role="form">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-            <div class="form-group {{ Session::get( 'password_class' ) }}">
-                <label for="password" class="control-label">New Password</label>
-                <input 
-                    type="password" 
-                    id="password" class="form-control" 
-                    name="password" value="{{{ Session::get( 'password' ) }}}"
+            <div class="form-group {{ Session::get('errors') ? 'has-error' : '' }}">
+                <label class="control-label"
+                    for="password"
+                >New Password
+                </label>
+
+                <input class="form-control"
+                    type="password" name="password" value="{{{ old('password') }}}"
+                    id="password"
                 >
-                <p class="help-block">{{ Session::get( 'password_error' ) }}</p>
+
+                <p class="help-block">
+                    {{ Session::get('errors') ? Session::get('errors')->first('password') : '' }}
+                </p>
             </div>
-            
-            <div class="form-group {{ Session::get( 'confirm_password_class' ) }}">
-                <label for="confirm_password" class="control-label">Confirm New Password</label>
-                <input 
-                    type="password" 
-                    id="confirm_password" class="form-control" 
-                    name="confirm_password" value="{{{ Session::get( 'confirm_password' ) }}}"
+
+            <div class="form-group {{ Session::get('errors') ? 'has-error' : '' }}">
+                <label class="control-label"
+                    for="password_confirmation"
+                >Confirm new password
+                </label>
+
+                <input class="form-control"
+                    type="password" name="password_confirmation" value="{{{ old('password') }}}"
+                    id="password_confirmation"
                 >
-                <p class="help-block">{{ Session::get( 'confirm_password_error' ) }}</p>
+
+                <p class="help-block">
+                    {{ Session::get('errors') ? Session::get('errors')->first('password') : '' }}
+                </p>
             </div>
-            
+
             <button class="btn btn-primary">Submit</button>
-            
+
         </form>
-        
+
         <hr>
-        
     </div>
-    
-@stop
+
+@endsection

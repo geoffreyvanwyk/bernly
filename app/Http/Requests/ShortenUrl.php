@@ -22,7 +22,7 @@ class ShortenUrl extends Request {
      */
     public function rules()
     {
-        return Url::VALIDATION_RULES;
+        return Url::$validation_rules;
     }
 
 }

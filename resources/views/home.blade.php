@@ -1,13 +1,13 @@
-@extends( 'layouts.master' )
+@extends('layouts.master')
 
-@section( 'content' )
+@section('content')
 
     <div class="container">
         <div class="jumbotron">
             <form action="." method="post">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                <div class="form-group {{ Session::get( 'errors' ) !== null ?  'has-error' : '' }}">
+                <div class="form-group {{ Session::get('errors') ? 'has-error' : '' }}">
                     <div class="input-group"
                         style="font-size: 14px !important"
                     >
@@ -16,7 +16,8 @@
                         </span>
 
                         <input class="form-control input-lg "
-                            type="url" name="long_url" placeholder="Paste long link here"
+                            type="text" name="long_url" value="{{{ old('long_url') }}}"
+                            placeholder="Paste long link here"
                         >
 
                         <span class="input-group-btn" >
@@ -27,20 +28,19 @@
                         </span>
                     </div>
 
-                @if ( Session::get( 'errors' ) )
-
                     <span class="help-block">
-                        {{ str_replace( 'url', 'link', Session::get( 'errors' )->first( 'long_url' ) ) }}
+
+                        @if (Session::get('errors'))
+                            {{ str_replace('url', 'link', Session::get('errors')->first('long_url')) }}
+                        @endif
+
                     </span>
-
-                @endif
-
                 </div>
             </form>
         </div>
     </div>
 
-    @if ( Session::get( 'short_url' ) )
+    @if (Session::get('short_url'))
 
         <div class="container" >
             <div class="panel panel-success" >

@@ -4,7 +4,8 @@ class Url extends \Eloquent
 {
     const RECENT_URL_COUNT = 5;
     const SHORT_URL_CHARACTER_SET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const VALIDATION_RULES = [
+
+    public static $validation_rules = [
         'long_url' => 'required|url'
     ];
 

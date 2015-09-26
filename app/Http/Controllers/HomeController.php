@@ -8,34 +8,33 @@ use Bernly\Helpers\UrlHelper,
 class HomeController extends Controller
 {
     /**
-     * @summary Display the home page, as well as the new short url, if any.
+     * @summary Display the home page as well as the new short url, if any,
+     * and some of the last shortened URLs.
      *
      * @return Response
      */
     public function getIndex($short_url = '')
     {
         if ($short_url) {
-            return $this->redirectUrl($short_url);
+            return UrlHelper::redirectUrl($short_url);
         }
 
-        if ( \Auth::check() ) {
-            $urls = \Auth::user()
-                ->urls()
-                ->orderBy( 'created_at', 'desc' )
-                ->take(Url::RECENT_URL_COUNT)
-                ->get()
-                ->toArray();
-
-            $urls = UrlHelper::changeTimeZone($urls);
-
-            return \View::make( 'home' )->with( 'urls', $urls );
+        if (auth()->check()) {
+            return view('home')->with([
+                'urls' => UrlHelper::changeTimeZone(auth()->user()
+                    ->urls()
+                    ->orderBy('created_at', 'desc')
+                    ->take(Url::RECENT_URL_COUNT)
+                    ->get()
+                    ->toArray())
+            ]);
         }
 
-        return \View::make( 'home' );
+        return view('home');
     }
 
     /**
-     * @summary For a given long URL, create a short URL.
+     * @summary For a given long URL, create a short URL, then display the home page.
      *
      * @description Responds to HTTP POST /. If the user is logged-in, assign the URL to the user.
      *
@@ -43,45 +42,14 @@ class HomeController extends Controller
      */
     public function postIndex()
     {
-        $long_url = \Input::get( 'long_url' );
-        $url = UrlHelper::createShortUrl( $long_url );
-        $short_url = env( 'APP_URL_SHORT' ) . '/' . $url->short_url;
+        $long_url = \Input::get('long_url');
+        $url = UrlHelper::createShortUrl($long_url);
+        $short_url = env('APP_URL_SHORT') . '/' . $url->short_url;
 
-        if (\Auth::check() && \Auth::user()->verified) {
-            UrlHelper::assignUrlToUser( $url->id );
+        if (auth()->check() && auth()->user()->verified) {
+            UrlHelper::assignUrlToUser($url->id);
         }
 
-        return \Redirect::to( '/' )->with([
-            'short_url' => $short_url,
-            'long_url' => $long_url
-        ]);
-    }
-
-    /**
-     * @summary For a given short URL, redirect to the corresponding long URL.
-     *
-     * @param string $short_url The short URL from which the browser should redirect to original long URL.
-     *
-     * @return Response
-     */
-    public function redirectUrl( $short_url )
-    {
-        try {
-            $url = Url::where( 'short_url', '=', $short_url )->firstOrFail();
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
-            abort(404);
-        }
-
-        $url_hit = new UrlHit;
-        $url_hit->url_id = $url->id;
-
-        if ( \Request::header( 'Referer' ) ) {
-            $url_hit->referer = \Request::header( 'Referer' );
-        }
-
-        $url_hit->save();
-
-        return \Redirect::to( $url['long_url'] );
+        return redirect('/', compact('short_url', 'long_url'));
     }
 }
-

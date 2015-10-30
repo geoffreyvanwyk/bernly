@@ -1,9 +1,9 @@
 <?php namespace Bernly\Http\Requests;
 
-use Bernly\Http\Requests\Request,
-    Bernly\Models\Url;
+use Bernly\Models\Url,
+    Bernly\Http\Requests\Request;
 
-class ShortenUrl extends Request {
+class ShortenUrlRequest extends Request {
 
     /**
      * Determine if the user is authorized to make this request.

@@ -3,7 +3,8 @@
 use Bernly\Helpers\UrlHelper,
     Bernly\Models\Url,
     Bernly\Models\UrlHit,
-    Bernly\Models\User;
+    Bernly\Models\User,
+    Bernly\Http\Requests\ShortenUrlRequest;
 
 class HomeController extends Controller
 {
@@ -38,9 +39,11 @@ class HomeController extends Controller
      *
      * @description Responds to HTTP POST /. If the user is logged-in, assign the URL to the user.
      *
+     * @param ShortenUrlRequest $request
+     *
      * @return Response
      */
-    public function postIndex()
+    public function postIndex(ShortenUrlRequest $request)
     {
         $long_url = \Input::get('long_url');
         $url = UrlHelper::createShortUrl($long_url);

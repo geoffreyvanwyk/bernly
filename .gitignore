@@ -1,8 +1,0 @@
-/vendor
-/node_modules
-.env
-*.swp
-/public/static/bower_components
-composer.lock
-tags
-/nbproject/private/

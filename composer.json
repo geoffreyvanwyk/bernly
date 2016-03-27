@@ -1,0 +1,14 @@
+{
+    "name": "systemovich/bernly",
+    "description": "A URL shortener and aliaser.",
+    "type": "project",
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Geoffrey van Wyk",
+            "email": "geoffrey@vanwyk.biz"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

@@ -13,7 +13,7 @@ use Faker\Factory as FakeFactory;
 use Bernly\Domain\Link\Url;
 use Bernly\Domain\Link\Link;
 use Bernly\Domain\Link\DomainName;
-use Bernly\Infrastructure\Persistence\InMemory\Link\InMemoryLinkRepository;
+use Bernly\Infrastructure\Persistence\InMemory\Link\ArrayLinkRepository;
 
 /**
  * Defines application features from the specific context.
@@ -29,7 +29,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function __construct()
     {
-        $this->links = new InMemoryLinkRepository();
+        $this->links = new ArrayLinkRepository();
         $this->faker = FakeFactory::create();
     }
 
@@ -134,6 +134,6 @@ class FeatureContext implements Context, SnippetAcceptingContext
         PHPUnit::assertCount(
             intval($linkCount),
             $this->links->ofShortDomain(new DomainName($this->shortDomain))
-            );
+        );
     }
 }

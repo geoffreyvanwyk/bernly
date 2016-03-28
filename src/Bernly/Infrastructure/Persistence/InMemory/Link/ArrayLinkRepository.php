@@ -10,7 +10,7 @@ use Bernly\Domain\Link\LinkRepository;
 /**
  * An in-memory implementation of the LinkRepository that persists Link objects in an array.
  */
-class InMemoryLinkRepository implements LinkRepository
+class ArrayLinkRepository implements LinkRepository
 {
     /**
      * @var Link[]

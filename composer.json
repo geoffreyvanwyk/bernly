@@ -12,6 +12,13 @@
     "minimum-stability": "stable",
     "require": {},
     "require-dev": {
-        "behat/behat": "^3.0"
+        "behat/behat": "^3.0",
+        "phpunit/phpunit": "^5.2",
+        "fzaninotto/faker": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bernly\\": "src/Bernly"
+        }
     }
 }

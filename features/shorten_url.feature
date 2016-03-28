@@ -6,10 +6,13 @@ Feature: Shorten a link
   Scenario: Long link is valid
     Given long link I want to shorten is "docs.behat.org/en/v3.0/quick_intro_pt1.html"
       And short domain name to be used for the short link is "bern.ly"
-      And long link is a valid URL
-      And short domain is a valid domain name
       And long link has not been shortened with the short domain before
       And number of long links already shortened with the short domain is 2
      When I shorten the long link
      Then short link I receive back should be "bern.ly/3"
       And new number of long links already shortened with the short domain is 3
+
+  Scenario: Long link is invalid
+    Given long link I want to shorten is "d%ocs.behat.org/en/v3.0/quick_intro_pt1.html"
+     When I shorten the long link
+     Then I should receive back the message that "The link you provided is not a valid URL."

@@ -13,6 +13,7 @@ use Faker\Factory as FakeFactory;
 use Bernly\Domain\Link\Url;
 use Bernly\Domain\Link\Link;
 use Bernly\Domain\Link\DomainName;
+use Bernly\Domain\Link\InvalidUrlException;
 use Bernly\Infrastructure\Persistence\InMemory\Link\ArrayLinkRepository;
 
 /**
@@ -47,22 +48,6 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function shortDomainNameToBeUsedForTheShortLinkIs($shortDomain)
     {
         $this->shortDomain = $shortDomain;
-    }
-
-    /**
-     * @Given long link is a valid URL
-     */
-    public function longLinkIsAValidURL()
-    {
-        $url = new Url($this->longLink);
-    }
-
-    /**
-     * @Given short domain is a valid domain name
-     */
-    public function shortDomainIsAValidDomainName()
-    {
-        $domain = new DomainName($this->shortDomain);
     }
 
     /**
@@ -106,11 +91,19 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShortenTheLongLink()
     {
-        $this->link = new Link(
-            new Url($this->longLink),
-            new DomainName($this->shortDomain),
-            $this->oldLinkCount
-        );
+        try {
+            $this->link = new Link(
+                new Url($this->longLink),
+                new DomainName(
+                    isset($this->shortDomain) ? $this->shortDomain : $this->faker->domainName
+                ),
+                isset($this->oldLinkCount) ? $this->oldLinkCount : $this->faker->randomDigitNotNull
+
+            );
+        } catch (InvalidUrlException $e) {
+            $this->message = $e->getMessage();
+            return;
+        }
 
         $this->links->add($this->link);
     }
@@ -134,6 +127,17 @@ class FeatureContext implements Context, SnippetAcceptingContext
         PHPUnit::assertCount(
             intval($linkCount),
             $this->links->ofShortDomain(new DomainName($this->shortDomain))
+        );
+    }
+
+    /**
+     * @Then I should receive back the message that :message
+     */
+    public function iShouldReceiveBackTheMessageThat($message)
+    {
+        PHPUnit::assertSame(
+            $message,
+            $this->message
         );
     }
 }

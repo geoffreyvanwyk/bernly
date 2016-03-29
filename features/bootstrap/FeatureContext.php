@@ -35,25 +35,25 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given long link I want to shorten is :longLink
+     * @Given the long link I want to shorten is :longLink
      */
-    public function longLinkIWantToShortenIs($longLink)
+    public function theLongLinkIWantToShortenIs($longLink)
     {
         $this->longLink = $longLink;
     }
 
     /**
-     * @Given short domain name to be used for the short link is :shortDomain
+     * @Given the short domain name to be used for the short link is :shortDomain
      */
-    public function shortDomainNameToBeUsedForTheShortLinkIs($shortDomain)
+    public function theShortDomainNameToBeUsedForTheShortLinkIs($shortDomain)
     {
         $this->shortDomain = $shortDomain;
     }
 
     /**
-     * @Given long link has not been shortened with the short domain before
+     * @Given the long link has not been shortened with the short domain before
      */
-    public function longLinkHasNotBeenShortenedWithTheShortDomainBefore()
+    public function theLongLinkHasNotBeenShortenedWithTheShortDomainBefore()
     {
         PHPUnit::assertNull(
             $this->links->ofLongAndShortDomain(
@@ -64,9 +64,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given number of long links already shortened with the short domain is :linkCount
+     * @Given the initial number of long links already shortened with the short domain is :linkCount
      */
-    public function numberOfLongLinksAlreadyShortenedWithTheShortDomainIs($linkCount)
+    public function theInitialNumberOfLongLinksAlreadyShortenedWithTheShortDomainIs($linkCount)
     {
         $this->oldLinkCount = intval($linkCount);
 
@@ -109,9 +109,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Then short link I receive back should be :shortLink
+     * @Then the short link I receive back should be :shortLink
      */
-    public function shortLinkIReceiveBackShouldBe($shortLink)
+    public function theShortLinkIReceiveBackShouldBe($shortLink)
     {
         PHPUnit::assertSame(
             $shortLink,
@@ -120,9 +120,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given new number of long links already shortened with the short domain is :linkCount
+     * @Given the final number of long links already shortened with the short domain is :linkCount
      */
-    public function newNumberOfLongLinksAlreadyShortenedWithTheShortDomainIs($linkCount)
+    public function theFinalNumberOfLongLinksAlreadyShortenedWithTheShortDomainIs($linkCount)
     {
         PHPUnit::assertCount(
             intval($linkCount),

@@ -17,6 +17,11 @@ class Link
         $this->oldLinkCount = $oldLinkCount;
     }
 
+    public function long()
+    {
+        return $this->long;
+    }
+
     public function shortDomain()
     {
         return $this->shortDomain;
@@ -33,6 +38,6 @@ class Link
             $counter = floor($counter / $characterCount);
         }
 
-        return $this->shortDomain->value() . '/' . $shortLink;
+        return new Url($this->shortDomain->value() . '/' . $shortLink);
     }
 }

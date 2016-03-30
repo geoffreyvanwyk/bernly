@@ -28,6 +28,24 @@ interface LinkRepository
     public function removeAll();
 
     /**
+     * Link with the specified short URL.
+     *
+     * @param Url $shortLink Url to search by.
+     *
+     * @return Link|null
+     */
+    public function ofShort(Url $shortLink);
+
+    /**
+     * Links with the specified short domain name.
+     *
+     * @param DomainName $shortDomain Domain name to search by.
+     *
+     * @return Link[]
+     */
+    public function ofShortDomain(DomainName $shortDomain);
+
+    /**
      * Link with the specified long version and short domain name.
      *
      * @param Url       $longLink    Url to search by.
@@ -36,13 +54,4 @@ interface LinkRepository
      * @return Link|null
      */
     public function ofLongAndShortDomain(Url $longLink, DomainName $shortDomain);
-
-    /**
-     * Links with the specified short domain name.
-     *
-     * @param DominName $shortDomain Domain name to search by.
-     *
-     * @return Link[]
-     */
-    public function ofShortDomain(DomainName $shortDomain);
 }

@@ -36,6 +36,20 @@ class ArrayLinkRepository implements LinkRepository
     /**
      * {@inheritdoc}
      */
+    public function ofShort(Url $shortLink)
+    {
+        foreach ($this->links as $link) {
+            if ($link->short()->equals($shortLink)) {
+                return $link;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function ofShortDomain(DomainName $shortDomain)
     {
         $links = [];
@@ -62,6 +76,6 @@ class ArrayLinkRepository implements LinkRepository
             }
         }
 
-        return null;
+        return;
     }
 }

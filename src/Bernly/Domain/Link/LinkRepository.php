@@ -21,6 +21,13 @@ interface LinkRepository
     public function add(Link $link);
 
     /**
+     * Empties the repository.
+     *
+     * @return void
+     */
+    public function removeAll();
+
+    /**
      * Link with the specified long version and short domain name.
      *
      * @param Url       $longLink    Url to search by.

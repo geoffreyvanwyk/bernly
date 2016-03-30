@@ -28,6 +28,14 @@ class ArrayLinkRepository implements LinkRepository
     /**
      * {@inheritdoc}
      */
+    public function removeAll()
+    {
+        $this->links = [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function ofShortDomain(DomainName $shortDomain)
     {
         $links = [];

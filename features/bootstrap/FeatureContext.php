@@ -35,17 +35,17 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given the long link I want to shorten is :longLink
+     * @Given I want to shorten the long link :longLink
      */
-    public function theLongLinkIWantToShortenIs($longLink)
+    public function iWantToShortenTheLongLink($longLink)
     {
         $this->longLink = $longLink;
     }
 
     /**
-     * @Given the short domain name to be used for the short link is :shortDomain
+     * @Given the system uses :shortDomain as the short domain name
      */
-    public function theShortDomainNameToBeUsedForTheShortLinkIs($shortDomain)
+    public function theSystemUsesAsTheShortDomainName($shortDomain)
     {
         $this->shortDomain = $shortDomain;
     }
@@ -64,24 +64,26 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given the initial number of long links already shortened with the short domain is :linkCount
+     * @Given the number of long links already shortened with the short domain is :initialLinkCount
      */
-    public function theInitialNumberOfLongLinksAlreadyShortenedWithTheShortDomainIs($linkCount)
+    public function theNumberOfLongLinksAlreadyShortenedWithTheShortDomainIs($initialLinkCount)
     {
-        $this->oldLinkCount = intval($linkCount);
+        $this->links->removeAll();
 
-        for ($i = 0; $i < $this->oldLinkCount; $i++) {
+        $this->initialLinkCount = intval($initialLinkCount);
+
+        for ($i = 0; $i < $this->initialLinkCount; $i++) {
             $this->links->add(
                 new Link(
                     new Url($this->faker->url),
                     new DomainName($this->shortDomain),
-                    $this->oldLinkCount
+                    $this->initialLinkCount
                 )
             );
         }
 
         PHPUnit::assertCount(
-            $this->oldLinkCount,
+            $this->initialLinkCount,
             $this->links->ofShortDomain(new DomainName($this->shortDomain))
         );
     }
@@ -97,7 +99,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
                 new DomainName(
                     isset($this->shortDomain) ? $this->shortDomain : $this->faker->domainName
                 ),
-                isset($this->oldLinkCount) ? $this->oldLinkCount : $this->faker->randomDigitNotNull
+                isset($this->initialLinkCount) ? $this->initialLinkCount : $this->faker->randomDigitNotNull
 
             );
         } catch (InvalidUrlException $e) {
@@ -109,9 +111,9 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Then the short link I receive back should be :shortLink
+     * @Then the system should give the short link :shortLink to me
      */
-    public function theShortLinkIReceiveBackShouldBe($shortLink)
+    public function theSystemShouldGiveTheShortLinkToMe($shortLink)
     {
         PHPUnit::assertSame(
             $shortLink,
@@ -120,20 +122,28 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given the final number of long links already shortened with the short domain is :linkCount
+     * @Then the final number of long links shortened with the short domain is :finalLinkCount
      */
-    public function theFinalNumberOfLongLinksAlreadyShortenedWithTheShortDomainIs($linkCount)
+    public function theFinalNumberOfLongLinksShortenedWithTheShortDomainIs($finalLinkCount)
     {
         PHPUnit::assertCount(
-            intval($linkCount),
+            intval($finalLinkCount),
             $this->links->ofShortDomain(new DomainName($this->shortDomain))
         );
     }
 
     /**
-     * @Then I should receive back the message that :message
+     * @Then the short link should point to the long link
      */
-    public function iShouldReceiveBackTheMessageThat($message)
+    public function theShortLinkShouldPointToTheLongLink()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then the system should tell me that :message
+     */
+    public function theSystemShouldTellMeThat($message)
     {
         PHPUnit::assertSame(
             $message,

@@ -68,14 +68,12 @@ class FeatureContext implements Context, SnippetAcceptingContext
         for ($i = 1; $i <= $this->initialLinkCount; $i++) {
             $this->links->add(new Link(
                 new Url($this->faker->url), $this->shortDomain,
-                $this->initialLinkCount
-            ));
+                $this->initialLinkCount));
         }
 
         PHPUnit::assertCount(
             $this->initialLinkCount,
-            $this->links->ofShortDomain($this->shortDomain)
-        );
+            $this->links->ofShortDomain($this->shortDomain));
     }
 
     /**
@@ -85,19 +83,48 @@ class FeatureContext implements Context, SnippetAcceptingContext
     {
         $this->link = new Link(
             $this->longLink, $this->shortDomain,
-            $this->convertPathToCount($this->path($shortLink))
-        );
-        
+            $this->convertPathToCount($this->path($shortLink)));
+
         $this->links->add($this->link);
 
         $existingLink = $this->links->ofLongAndShortDomain(
-            $this->longLink, $this->shortDomain
-        );
+            $this->longLink, $this->shortDomain);
 
         PHPUnit::assertInstanceOf(Link::class, $existingLink);
         PHPUnit::assertTrue(
-            $existingLink->short()->equals(new Url($shortLink))
-        );
+            $existingLink->short()->equals(new Url($shortLink)));
+    }
+
+    /**
+     * @Given I want to follow the short link :shortLink
+     */
+    public function iWantToFollowTheShortLink($shortLink)
+    {
+        $this->shortLink = new Url($shortLink);
+    }
+
+    /**
+     * @Given the short link has been created from the long link :originalLongLink
+     */
+    public function theShortLinkHasBeenShortenedFrom($originalLongLink)
+    {
+        $this->originalLongLink = new Url($originalLongLink);
+
+        $this->links->add(new Link($this->originalLongLink, $this->shortDomain,
+            $this->convertPathToCount($this->path($this->shortLink->uri()))));
+
+        PHPUnit::assertTrue(
+            $this->links->ofLongAndShortDomain(
+                $this->originalLongLink, $this->shortDomain
+            )->short()->equals($this->shortLink));
+    }
+
+    /**
+     * @Given the short link does not exist
+     */
+    public function theShortLinkDoesNotExist()
+    {
+        PHPUnit::assertNull($this->links->ofShort($this->shortLink));
     }
 
     /**
@@ -124,12 +151,24 @@ class FeatureContext implements Context, SnippetAcceptingContext
             $this->longLink : new Url($this->faker->url);
 
         $existingLink = $this->links->ofLongAndShortDomain(
-            $longLink, $this->shortDomain
-        );
+            $longLink, $this->shortDomain);
 
         $this->link = isset($existingLink) ? $existingLink : new Link(
-            $longLink, $this->shortDomain, $initialLinkCount
-        );
+            $longLink, $this->shortDomain, $initialLinkCount);
+    }
+
+    /**
+     * @When I follow the short link
+     */
+    public function iFollowTheShortLink()
+    {
+        $link = $this->links->ofShort($this->shortLink);
+
+        if ($link) {
+            $this->longLink = $link->long();
+        } else {
+            $this->message = "The short link has not been created yet.";
+        }
     }
 
     /**
@@ -138,8 +177,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     public function theSystemShouldGiveTheShortLinkToMe($shortLink)
     {
         PHPUnit::assertTrue(
-            $this->link->short()->equals(new Url($shortLink))
-        );
+            $this->link->short()->equals(new Url($shortLink)));
     }
 
     /**
@@ -152,6 +190,14 @@ class FeatureContext implements Context, SnippetAcceptingContext
         PHPUnit::assertCount(
             $finalLinkCount, $this->links->ofShortDomain($this->shortDomain)
         );
+    }
+
+    /**
+     * @Then the system should redirect me to the long link
+     */
+    public function theSystemShouldRedirectMeToTheLongLink()
+    {
+        PHPUnit::assertTrue($this->longLink->equals($this->originalLongLink));
     }
 
     /**
@@ -174,8 +220,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
 
         for ($i = 0; $i < strlen($path); $i++) {
             $count += ($base ** $i) * strpos(
-                    Link::SHORT_URL_CHARACTER_SET, $path[strlen($path) - 1]
-            );
+                    Link::SHORT_URL_CHARACTER_SET, $path[strlen($path) - 1]);
         }
 
         return $count - 1;

@@ -18,7 +18,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Bernly\\": "src/Bernly"
+            "Bernly\\": "src/Bernly",
+            "Bernly\\Feature\\": "features/bootstrap"
         }
     }
 }

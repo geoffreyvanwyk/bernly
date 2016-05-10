@@ -118,7 +118,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
     /**
      * @Given the short link has been created from the long link :originalLongLink
      */
-    public function theShortLinkHasBeenShortenedFrom($originalLongLink)
+    public function theShortLinkHasBeenCreatedFromTheLongLink($originalLongLink)
     {
         $this->originalLongLink = new Url($originalLongLink);
 

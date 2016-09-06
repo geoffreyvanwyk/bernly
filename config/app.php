@@ -27,9 +27,10 @@ return [
 	*/
 
 	'url' => env('APP_URL', 'http://bernly.com'),
-    'url_no_protocol' => env('APP_URL_NO_PROTOCOL', 'bernly.com'),
 
-	/*
+  'url_no_protocol' => env('APP_URL_NO_PROTOCOL', 'bernly.com'),
+
+  /*
 	|--------------------------------------------------------------------------
 	| Application Timezone
 	|--------------------------------------------------------------------------

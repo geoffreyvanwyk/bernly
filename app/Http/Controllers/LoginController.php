@@ -1,41 +1,44 @@
-<?php namespace Bernly\Http\Controllers; 
+<?php
+
+namespace Bernly\Http\Controllers;
+
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
     public function getIndex()
     {
-        return \Redirect::to( 'log/in' );
+        return redirect('log/in');
     }
-    
+
     public function getIn()
     {
-        return \View::make( 'login' );
+        return view('login');
     }
-    
-    public function postIn()
+
+    public function postIn(Request $request)
     {
         $credentials = [
-            'email' => \Input::get( 'email' ),
-            'password' => \Input::get( 'password' )
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
         ];
-        $remember = \Input::get( 'remember_me' );
-        
-        if ( \Auth::attempt( $credentials, $remember ) ) {
-            return \Redirect::intended('/');
+
+        $remember = $request->input('remember_me');
+
+        if (auth()->attempt($credentials, $remember)) {
+            return redirect('/');
         }
-        
-        return \Redirect::to( '/log/in' )->with( array(
+
+        return redirect('/log/in')->with([
             'error' => true,
             'email' => $credentials['email'],
             'password' => $credentials['password']
-        ));
+        ]);
     }
-    
+
     public function getOut()
     {
-        \Auth::logout();
-        
-        return \Redirect::to( '/' );
+        auth()->logout();
+        return redirect('/');
     }
 }
-

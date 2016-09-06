@@ -18,6 +18,6 @@ Route::controllers([
     'password' => 'RemindersController'
 ]);
 
-Route::get('/{short_url?}', 'HomeController@getIndex');
+Route::get('/', 'HomeController@getIndex');
 Route::post('/', 'HomeController@postIndex');
-
+Route::get('/{short_url}', 'HomeController@redirectUrl');

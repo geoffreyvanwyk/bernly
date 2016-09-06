@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    @if ( Session::get( 'short_url' ) )
+    @if (session('shortUrl'))
 
         <div class="container" >
             <div class="panel panel-success" >
@@ -56,10 +56,10 @@
 
                     <tbody>
                         <tr>
-                            <td>{{ Session::get( 'short_url' ) }}</td>
+                            <td>{{ session('shortUrl') }}</td>
                             <td class="text-center"
                                 style="width: 15px"
-                            >{{ strlen( Session::get( 'short_url' ) ) }}
+                            >{{ strlen(session('shortUrl')) }}
                             </td>
                         </tr>
                     </tbody>
@@ -73,10 +73,10 @@
 
                     <tbody>
                         <tr>
-                            <td >{{ Session::get( 'long_url' ) }}</td>
+                            <td >{{ session('longUrl') }}</td>
                             <td class="text-center"
                                 style="width: 15px"
-                            >{{ strlen( Session::get( 'long_url' ) ) }}
+                            >{{ strlen(session('longUrl')) }}
                             </td>
                         </tr>
                     </tbody>
@@ -123,13 +123,10 @@
                     @foreach ( $urls as $url )
 
                         <tr>
-                            <td>{{ $url['long_url'] }}</td>
-                            <td>{{ env( 'APP_URL_SHORT' ) }}/{{ $url['short_url'] }}</td>
-                            <td>{{ $url['created_at'] }}</td>
-                            <td
-                                class="text-center"
-                            >{{ $url['hits'] }}
-                            </td>
+                            <td>{{ $url->long_url }}</td>
+                            <td>{{ env( 'APP_URL_SHORT' ) }}/{{ $url->short_url }}</td>
+                            <td>{{ $url->created_at }}</td>
+                            <td class="text-center">{{ $url->hits }}</td>
                         </tr>
 
                     @endforeach
@@ -187,4 +184,3 @@
 
     @endif
 @endsection
-

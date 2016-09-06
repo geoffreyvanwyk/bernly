@@ -1,7 +1,9 @@
-<?php namespace Bernly\Helpers;
+<?php
 
-use Bernly\Models\Url,
-    Bernly\Models\UrlUser;
+namespace Bernly\Helpers;
+
+use Bernly\Models\Url;
+use Bernly\Models\UrlUser;
 
 class UrlHelper
 {
@@ -34,46 +36,4 @@ class UrlHelper
 
         return $urls_with_hits;
     }
-
-    public static function createShortUrl($long_url)
-    {
-        try {
-            $url = Url::where('long_url', '=', $long_url)->firstOrFail();
-        } catch (\Exception $exception) {
-            $url = new Url;
-            $url->long_url = $long_url;
-            $url->shortenUrl();
-            $url->save();
-        }
-
-        return $url;
-    }
-
-    /**
-     * @summary For a given short URL, redirect to the corresponding long URL.
-     *
-     * @param string $short_url The short URL from which the browser should redirect to original long URL.
-     *
-     * @return Response
-     */
-    public function redirectUrl( $short_url )
-    {
-        try {
-            $url = Url::where( 'short_url', '=', $short_url )->firstOrFail();
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $exception) {
-            abort(404);
-        }
-
-        $url_hit = new UrlHit;
-        $url_hit->url_id = $url->id;
-
-        if (\Request::header('Referer')) {
-            $url_hit->referer = \Request::header('Referer');
-        }
-
-        $url_hit->save();
-
-        return redirect($url['long_url']);
-    }
 }
-

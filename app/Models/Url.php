@@ -1,4 +1,11 @@
-<?php namespace Bernly\Models;
+<?php
+
+namespace Bernly\Models;
+
+use Illuminate\Database\Eloquent\Builder;
+
+use Bernly\Models\User;
+use Bernly\Models\UrlHit;
 
 class Url extends \Eloquent
 {
@@ -13,7 +20,7 @@ class Url extends \Eloquent
      */
     public function urlHits()
     {
-        return $this->hasMany('Bernly\Models\UrlHit');
+        return $this->hasMany(UrlHit::class);
     }
 
     /**
@@ -23,7 +30,7 @@ class Url extends \Eloquent
      */
     public function users()
     {
-        return $this->belongsToMany('Bernly\Models\User');
+        return $this->belongsToMany(User::class);
     }
 
     /**
@@ -45,5 +52,16 @@ class Url extends \Eloquent
 
         $this->short_url = $short_url;
     }
-}
 
+    /**
+     * Most recently shortened URLs in reverse chronological order.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRecent(Builder $query)
+    {
+        return $query->orderBy('created_at', 'desc')->take(Url::RECENT_URL_COUNT);
+    }
+}

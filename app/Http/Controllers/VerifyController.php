@@ -6,16 +6,18 @@ class VerifyController extends Controller
 {
     public function __construct()
     {
-        $this->beforeFilter( 'auth', array( 'except' => 'getEmail' ) );
+        $this->middleware('auth', [
+            'except' => 'getEmail'
+        ]);
     }
 
     public function getIndex()
     {
         $token = \Hash::make( \Auth::user()->email . \Config::get('app.key') );
-    
-        \Mail::send( 
-            array( 'text' => 'emails.verify' ), 
-            array( 'token' => $token ), 
+
+        \Mail::send(
+            array( 'text' => 'emails.verify' ),
+            array( 'token' => $token ),
             function ( $message )
             {
                 $message
@@ -23,13 +25,13 @@ class VerifyController extends Controller
                     ->subject( 'Email Verification' );
             }
         );
-        
-        return \Redirect::to( 'user/view' )->with( array( 
+
+        return \Redirect::to( 'user/view' )->with( array(
             'is_edited_email' => \Session::get( 'is_edited_email' ),
             'is_resent' => (bool) \Input::get( 'resent' )
         ));
     }
-    
+
     public function getEmail()
     {
         $email = rawurldecode( \Input::get( 'address' ) );
@@ -37,13 +39,12 @@ class VerifyController extends Controller
 
         $user = User::where( 'email', '=', $email )->first();
         $verified = $user && \Hash::check( $email . \Config::get( 'app.key' ), $token );
-        
+
         if ( $verified ) {
             $user->verified = true;
             $user->save();
         }
-    
+
        return \View::make( 'email-verification' )->with( 'success',  $verified );
     }
 }
-

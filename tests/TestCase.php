@@ -1,5 +1,7 @@
 <?php
 
+protected $baseUrl = 'http://localhost';
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
 	/**

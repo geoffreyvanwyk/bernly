@@ -1,4 +1,6 @@
-<?php namespace Bernly\Http\Controllers\Auth;
+<?php
+
+namespace Bernly\Http\Controllers\Auth;
 
 use Bernly\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
@@ -23,15 +25,10 @@ class PasswordController extends Controller {
 	/**
 	 * Create a new password controller instance.
 	 *
-	 * @param  \Illuminate\Contracts\Auth\Guard  $auth
-	 * @param  \Illuminate\Contracts\Auth\PasswordBroker  $passwords
 	 * @return void
 	 */
-	public function __construct(Guard $auth, PasswordBroker $passwords)
+	public function __construct()
 	{
-		$this->auth = $auth;
-		$this->passwords = $passwords;
-
 		$this->middleware('guest');
 	}
 

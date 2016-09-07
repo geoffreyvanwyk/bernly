@@ -18,7 +18,9 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->beforeFilter( 'auth', array( 'except' => array( 'getIndex', 'getAdd', 'postAdd' ) ) );
+        $this->middleware('auth', [
+            'except' => ['getIndex', 'getAdd', 'postAdd']
+        ]);
     }
 
     /**
@@ -60,7 +62,7 @@ class UserController extends Controller
         $recaptcha_result = $recaptcha->verify($recaptcha_response);
 
         if (! UserHelper::isEmailValid($email)) {
-            return \Redirect::to('/user/add')->with([ 
+            return \Redirect::to('/user/add')->with([
                 'email_class' => 'has-error',
                 'email_error' => 'The email you entered is invalid. It should be similar to john@example.com',
                 'email' => $email,
@@ -71,7 +73,7 @@ class UserController extends Controller
         }
 
         if (! UserHelper::isPasswordValid($password)) {
-            return \Redirect::to('/user/add')->with([ 
+            return \Redirect::to('/user/add')->with([
               'password_class' => 'has-error',
               'password_error' => 'Password should be at least 10 characters long.',
               'email' => $email,
@@ -82,7 +84,7 @@ class UserController extends Controller
         }
 
         if (! UserHelper::isPasswordConfirmed($password, $confirm_password)) {
-            return \Redirect::to('/user/add')->with([ 
+            return \Redirect::to('/user/add')->with([
                 'confirm_password_class' => 'has-error',
                 'confirm_password_error' => 'The passwords do not match.',
                 'email' => $email,
@@ -122,7 +124,7 @@ class UserController extends Controller
         try {
             $user->save();
         } catch (QueryException $exception) {
-            return \Redirect::to('/user/add')->with([ 
+            return \Redirect::to('/user/add')->with([
                 'email_class' => 'has-error',
                 'email_error' => 'The email you entered has already been used.',
                 'email' => $email,
@@ -316,7 +318,7 @@ class UserController extends Controller
         $created_at = new \DateTime( $url['created_at'], $db_time_zone );
         $created_at->setTimeZone( $user_timezone );
         $url['created_at'] = $created_at->format( 'Y-m-d H:i:s' );
-        
+
         $url['hits'] = [];
         foreach ( $url_hits as $url_hit ) {
             $url_hit_created_at = new \DateTime( $url_hit['created_at'], $db_time_zone );
@@ -329,4 +331,3 @@ class UserController extends Controller
         return \View::make( 'clicks' )->with( 'url', $url );
     }
 }
-

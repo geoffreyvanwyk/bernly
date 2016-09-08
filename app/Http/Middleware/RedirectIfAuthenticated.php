@@ -1,4 +1,6 @@
-<?php namespace Bernly\Http\Middleware;
+<?php
+
+namespace Bernly\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
@@ -35,7 +37,7 @@ class RedirectIfAuthenticated {
 	{
 		if ($this->auth->check())
 		{
-			return new RedirectResponse(url('/home'));
+			return new RedirectResponse(url('/'));
 		}
 
 		return $next($request);

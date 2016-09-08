@@ -1,4 +1,6 @@
-<?php namespace Bernly\Http\Middleware;
+<?php
+
+namespace Bernly\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
@@ -40,7 +42,7 @@ class Authenticate {
 			}
 			else
 			{
-				return redirect()->guest('auth/login');
+				return redirect()->guest('/log/in');
 			}
 		}
 

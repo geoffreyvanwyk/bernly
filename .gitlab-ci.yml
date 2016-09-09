@@ -21,11 +21,4 @@ publish:
   stage: deploy
   only:
     - master
-  script:
-    - GIT_WORK_TREE=/srv/http/bernly.com git checkout -f
-    - cd /srv/http/bernly.com
-    - composer install
-    - bower install
-    - ln -s /srv/http/environment_settings/bernly.com .env
-    - ./artisan migrate
-    - chown -R www-data:www-data .
+  script: git push geoffrey@kenhardt

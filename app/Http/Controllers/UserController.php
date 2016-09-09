@@ -1,12 +1,19 @@
 <?php namespace Bernly\Http\Controllers;
 
-use Bernly\Helpers\UrlHelper,
-    Bernly\Helpers\UserHelper,
-    Bernly\Models\Url,
-    Bernly\Models\User;
+use DateTime;
+use DateTimeZone;
+
+use Hash;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 use ReCaptcha\ReCaptcha;
-use \Illuminate\Database\QueryException;
+
+use Bernly\Helpers\UrlHelper;
+use Bernly\Helpers\UserHelper;
+use Bernly\Models\Url;
+use Bernly\Models\User;
+
 
 class UserController extends Controller
 {
@@ -30,7 +37,7 @@ class UserController extends Controller
      */
     public function getIndex()
     {
-        return \Redirect::to( '/' );
+        return redirect('/');
     }
 
     /**
@@ -40,9 +47,10 @@ class UserController extends Controller
      */
     public function getAdd()
     {
-        $timezones = \DateTimeZone::listIdentifiers( \DateTimeZone::ALL );
-
-        return \View::make( 'user.add' )->with( 'timezones', $timezones );
+        return view('user.add')->with(
+            'timezones',
+            DateTimeZone::listIdentifiers(DateTimeZone::ALL)
+       );
     }
 
     /**
@@ -50,19 +58,19 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function postAdd()
+    public function postAdd(Request $request)
     {
-        $email = \Input::get( 'email' );
-        $password = \Input::get( 'password' );
-        $confirm_password = \Input::get( 'confirm_password' );
-        $timezone = \Input::get( 'timezone' );
-        $recaptcha_response = \Input::get('g-recaptcha-response');
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $confirm_password = $request->input('confirm_password');
+        $timezone = $request->input('timezone');
+        $recaptcha_response = $request->input('g-recaptcha-response');
 
         $recaptcha = new ReCaptcha(env('RECAPTCHA_SECRET_KEY'));
         $recaptcha_result = $recaptcha->verify($recaptcha_response);
 
         if (! UserHelper::isEmailValid($email)) {
-            return \Redirect::to('/user/add')->with([
+            return redirect('/user/add')->with([
                 'email_class' => 'has-error',
                 'email_error' => 'The email you entered is invalid. It should be similar to john@example.com',
                 'email' => $email,
@@ -73,7 +81,7 @@ class UserController extends Controller
         }
 
         if (! UserHelper::isPasswordValid($password)) {
-            return \Redirect::to('/user/add')->with([
+            return redirect('/user/add')->with([
               'password_class' => 'has-error',
               'password_error' => 'Password should be at least 10 characters long.',
               'email' => $email,
@@ -84,7 +92,7 @@ class UserController extends Controller
         }
 
         if (! UserHelper::isPasswordConfirmed($password, $confirm_password)) {
-            return \Redirect::to('/user/add')->with([
+            return redirect('/user/add')->with([
                 'confirm_password_class' => 'has-error',
                 'confirm_password_error' => 'The passwords do not match.',
                 'email' => $email,
@@ -95,7 +103,7 @@ class UserController extends Controller
         }
 
         if ($timezone === 'Please select ...') {
-            return \Redirect::to('/user/add')->with([
+            return redirect('/user/add')->with([
                 'timezone_class' => 'has-error',
                 'timezone_error' => 'A timezone is required.',
                 'email' => $email,
@@ -105,7 +113,7 @@ class UserController extends Controller
         }
 
         if (! $recaptcha_result->isSuccess()) {
-            return \Redirect::to('user/add')->with([
+            return redirect('user/add')->with([
                 'recaptcha_class' => 'has-error',
                 'recaptcha_error' => 'Please complete the reCAPTCHA.',
                 'email' => $email,
@@ -117,14 +125,14 @@ class UserController extends Controller
 
         $user = new User;
         $user->email = $email;
-        $user->password = \Hash::make( $password );
+        $user->password = Hash::make($password);
         $user->timezone = $timezone;
-        $user->setRememberToken( 'remember' );
+        $user->setRememberToken('remember');
 
         try {
             $user->save();
         } catch (QueryException $exception) {
-            return \Redirect::to('/user/add')->with([
+            return redirect('/user/add')->with([
                 'email_class' => 'has-error',
                 'email_error' => 'The email you entered has already been used.',
                 'email' => $email,
@@ -134,9 +142,8 @@ class UserController extends Controller
             ]);
         }
 
-        \Auth::login( $user );
-
-        return \Redirect::to( '/verify' );
+        auth()->login($user);
+        return redirect('/verify');
     }
 
     /**
@@ -146,7 +153,7 @@ class UserController extends Controller
      */
     public function getView()
     {
-          return \View::make( 'user.view' );
+          return view('user.view');
     }
 
     /**
@@ -156,7 +163,7 @@ class UserController extends Controller
      */
     public function getEditEmail()
     {
-          return \View::make( 'user.edit-email' );
+        return view('user.edit-email');
     }
 
     /**
@@ -165,24 +172,24 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function postEditEmail()
+    public function postEditEmail(Request $request)
     {
-        $email = \Input::get( 'email' );
+        $email = $request->input('email');
 
-        if ( ! UserHelper::isEmailValid( $email ) ) {
-            return \Redirect::to( '/user/edit-email' )->with( array(
+        if (! UserHelper::isEmailValid($email)) {
+            return redirect('/user/edit-email')->with([
                 'email_class' => 'has-error',
                 'email_error' => 'The email you entered is invalid. It should be similar to john@example.com',
                 'email' => $email
-            ));
+            ]);
         }
 
-        $user = User::find( \Auth::user()->id );
+        $user = User::find(auth()->user()->id);
         $user->email = $email;
         $user->verified = false;
         $user->save();
 
-        return \Redirect::to( '/verify' )->with( 'is_edited_email', true );
+        return redirect('/verify')->with('is_edited_email', true);
     }
 
     /**
@@ -192,7 +199,7 @@ class UserController extends Controller
      */
     public function getEditPassword()
     {
-        return \View::make( 'user.edit-password' );
+        return view('user.edit-password');
     }
 
     /**
@@ -201,35 +208,35 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function postEditPassword()
+    public function postEditPassword(Request $request)
     {
-        $password = \Input::get( 'password' );
-        $confirm_password = \Input::get( 'confirm_password' );
+        $password = $request->input('password');
+        $confirm_password = $request->input('confirm_password');
 
-        if ( ! UserHelper::isPasswordValid( $password ) ) {
-            return \Redirect::to( '/user/edit-password' )->with( array(
+        if (! UserHelper::isPasswordValid($password)) {
+            return redirect('/user/edit-password')->with(array(
                 'password_class' => 'has-error',
                 'password_error' => 'Password should be at least 10 characters long.',
                 'email' => $email,
                 'password' => $password,
                 'confirm_password' => $confirm_password
-            ));
+           ));
         }
 
-        if ( ! UserHelper::isPasswordConfirmed( $password, $confirm_password ) ) {
-            return \Redirect::to( '/user/edit-password' )->with( array(
+        if (! UserHelper::isPasswordConfirmed($password, $confirm_password)) {
+            return redirect('/user/edit-password')->with(array(
                 'confirm_password_class' => 'has-error',
                 'confirm_password_error' => 'The passwords do not match.',
                 'password' => $password,
                 'confirm_password' => $confirm_password
-            ));
+           ));
         }
 
-        $user = User::find( \Auth::user()->id );
-        $user->password = \Hash::make( $password );
+        $user = User::find(auth()->user()->id);
+        $user->password = Hash::make($password);
         $user->save();
 
-        return \Redirect::to('/user/view')->with( 'is_edited_password', true );
+        return redirect('/user/view')->with('is_edited_password', true);
     }
 
     /**
@@ -239,8 +246,8 @@ class UserController extends Controller
      */
     public function getEditTimezone()
     {
-        $timezones = \DateTimeZone::listIdentifiers( \DateTimeZone::ALL );
-        return \View::make( 'user.edit-timezone' )->with( 'timezones', $timezones );
+        $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+        return view('user.edit-timezone')->with('timezones', $timezones);
     }
 
     /**
@@ -249,22 +256,22 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function postEditTimezone()
+    public function postEditTimezone(Request $request)
     {
-        $timezone = \Input::get( 'timezone' );
+        $timezone = $request->input('timezone');
 
-        if ( $timezone === 'Please select ...' ) {
-            return \Redirect::to( '/user/edit-timezone' )->with( array(
+        if ($timezone === 'Please select ...') {
+            return redirect('/user/edit-timezone')->with([
                 'timezone_class' => 'has-error',
                 'timezone_error' => 'A timezone is required.'
-            ));
+           ]);
         }
 
-        $user = User::find( \Auth::user()->id );
+        $user = User::find(auth()->user()->id);
         $user->timezone = $timezone;
         $user->save();
 
-        return \Redirect::to( '/user/view' )->with( 'is_edited_timezone', true );
+        return redirect('/user/view')->with('is_edited_timezone', true);
     }
 
     /**
@@ -274,10 +281,10 @@ class UserController extends Controller
      */
     public function getRemove()
     {
-        $user = User::find( \Auth::user()->id );
+        $user = User::find(auth()->user()->id);
         $user->delete();
 
-        return \Redirect::to( '/' );
+        return redirect('/');
     }
 
     /**
@@ -287,17 +294,17 @@ class UserController extends Controller
      */
     public function getLinks()
     {
-        $user = User::find( \Auth::user()->id );
+        $user = User::find(auth()->user()->id);
 
         $urls = $user
             ->urls()
-            ->orderBy( 'created_at', 'desc' )
+            ->orderBy('created_at', 'desc')
             ->get()
             ->toArray();
 
         $urls_with_hits = UrlHelper::changeTimeZone($urls);
 
-        return \View::make( 'links' )->with( 'urls', $urls_with_hits );
+        return view('links')->with('urls', $urls_with_hits);
     }
 
     /**
@@ -306,28 +313,28 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function getLink( $url_id )
+    public function getLink($url_id)
     {
-        $url_object = Url::find( $url_id );
+        $url_object = Url::find($url_id);
         $url_hits = $url_object->urlHits;
         $url = $url_object->toArray();
 
-        $db_time_zone = new \DateTimeZone( 'UTC' );
-        $user_timezone = new \DateTimeZone( \Auth::user()->timezone );
+        $db_time_zone = new DateTimeZone('UTC');
+        $user_timezone = new DateTimeZone(auth()->user()->timezone);
 
-        $created_at = new \DateTime( $url['created_at'], $db_time_zone );
-        $created_at->setTimeZone( $user_timezone );
-        $url['created_at'] = $created_at->format( 'Y-m-d H:i:s' );
+        $created_at = new DateTime($url['created_at'], $db_time_zone);
+        $created_at->setTimeZone($user_timezone);
+        $url['created_at'] = $created_at->format('Y-m-d H:i:s');
 
         $url['hits'] = [];
-        foreach ( $url_hits as $url_hit ) {
-            $url_hit_created_at = new \DateTime( $url_hit['created_at'], $db_time_zone );
-            $url_hit_created_at->setTimeZone( $user_timezone );
-            $url_hit['created_at'] = $url_hit_created_at->format( 'Y-m-d H:i:s' );
+        foreach ($url_hits as $url_hit) {
+            $url_hit_created_at = new DateTime($url_hit['created_at'], $db_time_zone);
+            $url_hit_created_at->setTimeZone($user_timezone);
+            $url_hit['created_at'] = $url_hit_created_at->format('Y-m-d H:i:s');
 
             $url['hits'][] = $url_hit;
         }
 
-        return \View::make( 'clicks' )->with( 'url', $url );
+        return view('clicks')->with('url', $url);
     }
 }

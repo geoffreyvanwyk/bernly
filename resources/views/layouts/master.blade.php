@@ -8,18 +8,20 @@
         <meta name="description" content="A link (URL, web address) shortener.">
         <meta name="keywords" content="link, URL, web address, address, shorter, shorten, link shortener">
 
-        <link
-            rel="stylesheet"
-            href="{{ Illuminate\Support\Facades\URL::asset( 'static/bower_components/bootstrap/dist/css/bootstrap.min.css' ) }}"
-        >
-        <link
-          rel="stylesheet"
-          href="{{ Illuminate\Support\Facades\URL::asset( 'static/css/sticky-footer.css' ) }}"
-        >
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+              crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+              integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+              crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="{{ Illuminate\Support\Facades\URL::asset( 'css/sticky-footer.css' ) }}">
 
         @yield( 'styles' )
 
-        <title>{{ Config::get( 'app.url_no_protocol' ) }} | Link Shorterner</title>
+        <title>{{ config('app.url_no_protocol') }} | Link Shorterner</title>
     </head>
 
     <body>
@@ -39,7 +41,7 @@
 
                     <a class="navbar-brand" href="/">
                         <img
-                            src="{{ Illuminate\Support\Facades\URL::asset( 'static/img/bernly-logo.png') }}"
+                            src="{{ Illuminate\Support\Facades\URL::asset( 'img/bernly-logo.png') }}"
                             width="41.11"
                             height="20"
                         >
@@ -89,8 +91,12 @@
             </div>
         </div>
 
-        <script src="{{ Illuminate\Support\Facades\URL::asset( 'static/bower_components/jquery/dist/jquery.min.js' ) }}"></script>
-        <script src="{{ Illuminate\Support\Facades\URL::asset( 'static/bower_components/bootstrap/dist/js/bootstrap.min.js' ) }}"></script>
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js"
+                integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+                crossorigin="anonymous"></script>
 
         @yield( 'scripts' )
 

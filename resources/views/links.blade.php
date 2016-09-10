@@ -21,7 +21,7 @@
 
             <tr>
                 <td>{{ $url['long_url'] }}</td>
-                <td>{{ env( 'APP_URL_SHORT' ) }}/{{ $url['short_url'] }}</td>
+                <td>{{ config('app.url_short') }}/{{ $url['short_url'] }}</td>
                 <td>{{ $url['created_at'] }}</td>
                 <td class="text-center">{{ $url['hits'] }}</td>
                 <td><a href="/user/link/{{ $url['id'] }}">Details</a></td>

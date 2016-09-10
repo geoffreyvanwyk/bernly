@@ -60,7 +60,7 @@ class HomeController extends Controller
             $url->save();
         }
 
-        $shortUrl = env('APP_URL_SHORT') . '/' . $url->short_url;
+        $shortUrl = config('app.url_short') . '/' . $url->short_url;
 
         if (auth()->check() && auth()->user()->verified) {
             UrlHelper::assignUrlToUser($url->id);

@@ -18,19 +18,6 @@ use Bernly\Models\User;
 class UserController extends Controller
 {
     /**
-     * @summary Adds an authentication route filter to some user routes, redirecting the guest to the login
-     * form.
-     *
-     * @return UserController
-     */
-    public function __construct()
-    {
-        $this->middleware('auth', [
-            'except' => ['getIndex', 'getAdd', 'postAdd']
-        ]);
-    }
-
-    /**
      * @summary Responds to HTTP GET /user. Displays home page.
      *
      * @return Response
@@ -66,7 +53,7 @@ class UserController extends Controller
         $timezone = $request->input('timezone');
         $recaptcha_response = $request->input('g-recaptcha-response');
 
-        $recaptcha = new ReCaptcha(env('RECAPTCHA_SECRET_KEY'));
+        $recaptcha = new ReCaptcha(config('recaptcha.secret_key'));
         $recaptcha_result = $recaptcha->verify($recaptcha_response);
 
         if (! UserHelper::isEmailValid($email)) {

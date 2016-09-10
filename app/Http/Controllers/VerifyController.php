@@ -8,13 +8,6 @@ use Bernly\Models\User;
 
 class VerifyController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth', [
-            'except' => 'getEmail'
-        ]);
-    }
-
     public function getIndex(Request $request)
     {
         $token = Hash::make(auth()->user()->email . config('app.key') );

@@ -1,5 +1,0 @@
-suites:
-    main:
-        namespace: Bernly
-        psr4_prefix: Bernly
-        src_path: app

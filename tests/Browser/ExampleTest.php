@@ -8,6 +8,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ErrorsTest extends DuskTestCase
 {
+    use DatabaseMigrations;
+
     /**
      * When the app receives an HTTP request that does not contain a URL path
      * that matches the short alias of a long URL in the database, or a

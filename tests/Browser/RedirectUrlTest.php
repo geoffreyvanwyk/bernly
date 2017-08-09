@@ -11,7 +11,7 @@ class RedirectUrlTest extends DuskTestCase
     use DatabaseMigrations;
 
     /**
-     * When the app receives an HTTP request that contains a URL path that does
+     * When the app receives an HTTP request containing a URL path that does
      * not match the short alias of a long URL in the database, or a registered
      * route, it should display the custom 404 page.
      *

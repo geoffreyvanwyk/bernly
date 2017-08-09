@@ -31,4 +31,21 @@ class RedirectUrlTest extends TestCase
         // Assert
         $response->assertRedirect($link->url);
     }
+
+    /**
+     * When the app receives an HTTP request containing a URL path that does
+     * not match the short alias of a long URL in the database, or a registered
+     * route, it should display the custom 404 page.
+     *
+     * @test
+     * @return void
+     */
+    public function app_shows_404_page_for_unknown_short_url()
+    {
+        // Act
+        $response = $this->get('wrong');
+
+        // Assert
+        $response->assertStatus(404);
+    }
 }

@@ -33,22 +33,21 @@ class LinkTest extends TestCase
     ];
 
     /**
-     * Test that the correct alias is produced for a given id.
+     * Test that the correct alias is produced for a given Link id.
      *
      * @test
      * @return void
      */
-    public function can_get_link_alias()
+    public function can_get_alias_from_link()
     {
         foreach ($this->map as $base_10 => $base_62) {
-            $link = factory(Link::class)->make();
-            $link->id = $base_10;
+            $link = factory(Link::class)->make(['id' => $base_10]);
             $this->assertEquals($base_62, $link->alias);
         }
     }
 
     /**
-     * Test that the correct link is found for a given alias.
+     * Test that the correct Link is found for a given alias.
      *
      * @test
      * @return void

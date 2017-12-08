@@ -37,7 +37,7 @@ class Link extends Model
     }
 
     /**
-     * Find the id of the link with the given $alias.
+     * Find the link with the given $alias.
      *
      * @param string $alias
      * @return \App\Link
@@ -49,7 +49,8 @@ class Link extends Model
         $digits = str_split(strrev($alias));
 
         foreach ($digits as $place => $digit) {
-            $id += strpos(self::ALIAS_CHARACTER_SET, $digit) * pow($base, $place);
+            $decimalValueOfDigit = strpos(self::ALIAS_CHARACTER_SET, $digit);
+            $id +=  $decimalValueOfDigit * pow($base, $place);
         }
 
         return Link::findOrFail($id);
